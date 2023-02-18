@@ -108,7 +108,17 @@ class NetworkAPICall {
               rethrow;
             }
           case 201:
-            return response;
+            // return response;
+            try {
+              if (response.body.isEmpty) {
+                throw AppException(message: 'Response body is empty', errorCode: 0);
+              } else {
+                return jsonDecode(response.body);
+                // return json.decode(response.body);
+              }
+            } catch (e) {
+              rethrow;
+            }
           case 400:
             throw AppException(message: jsonDecode(response.body)['apierror']['description'], errorCode: 0);
           default:

@@ -33,21 +33,27 @@ class LoggerInterceptor implements InterceptorContract {
               child: Opacity(
                 opacity: a1.value,
                 child: AlertDialog(
-                  title: Text(StringsUtils.sessionExpire),
+                  title: const Text(StringsUtils.sessionExpire),
                   content: SizedBox(
                     height: 80,
                     child: Column(
-                      children: [Text(StringsUtils.yourSessionHasExpirePleaseLoginAgain)],
+                      children: [
+                        Text(StringsUtils.yourSessionHasExpirePleaseLoginAgain)
+                      ],
                     ),
                   ),
                   actions: [
                     ElevatedButton(
-                      child: Text(StringsUtils.ok),
+                      child: const Text(StringsUtils.ok),
                       onPressed: () {
-                        AppPreference.clearData();
+                        AppSharedPreference.clear();
                         Get.offAllNamed(Routes.splash);
                       },
-                    )
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(AppColors.redColor1),
+
+                      ),
+                    ),
                   ],
                 ),
               )));

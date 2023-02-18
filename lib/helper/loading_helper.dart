@@ -15,7 +15,7 @@ class Loading extends StatelessWidget {
         width: 25,
         child: LoadingIndicator(
           indicatorType: Indicator.lineSpinFadeLoader,
-          colors: [colors ?? AppColors.primaryColor],
+          colors: [colors ?? AppColors.white],
           strokeWidth: 2,
         ),
       ),

@@ -19,24 +19,25 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
       bottom: false,
       child: Scaffold(
         backgroundColor: AppColors.white,
-        body: SizedBox(
-          width: SizeUtils.horizontalBlockSize * 100,
-          child: Stack(
-            children: [
-              _buildCenterIcon(SizeUtils.horizontalBlockSize * 100),
-            ],
-          ),
+        body: Stack(
+          children: [
+            _buildCenterIcon(),
+          ],
         ),
       ),
     );
   }
 
-  Center _buildCenterIcon(double width) {
+  Center _buildCenterIcon() {
     return Center(
-      child: SizedBox(
-        width: width * 0.8,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeUtils.horizontalBlockSize * 8,
+        ),
         child: Image.asset(
           AssetsPath.splashIcon,
+          height: SizeUtils.horizontalBlockSize * 100,
+          width: SizeUtils.horizontalBlockSize * 100,
         ),
       ),
     );

@@ -53,7 +53,7 @@ dependencies:
   carousel_slider: ^4.2.1
   shared_preferences: ^2.0.16
   country_picker: ^2.0.19
-
+  get_storage: ^2.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -89,6 +89,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/fonts/
+    - assets/icons/bottomMenu/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

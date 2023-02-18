@@ -1,7 +1,9 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:purchase_vendor/modules/auth/otp_verification/otp_verification_screen.dart';
+import 'package:purchase_vendor/helper/loading_helper.dart';
+import 'package:purchase_vendor/modules/auth/forgot_password/controller/forgot_password_controller_screen.dart';
+import 'package:purchase_vendor/modules/auth/otp_verification/presentation/otp_verification_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/appvalidator.dart';
 import 'package:purchase_vendor/utils/country_utils.dart';
@@ -17,15 +19,21 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  ForgotPasswordController forgotPasswordController = Get.find();
+
   bool isFirstSubmit = true;
   var selectedCountry = Country.parse('IN');
   var phoneNoFocusNode = FocusNode();
-  final TextEditingController _emailOrPhoneController = TextEditingController();
+
+  // final TextEditingController _emailOrPhoneController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
+    var height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Scaffold(
       backgroundColor: AppColors.redColor1,
       body: SingleChildScrollView(
@@ -38,10 +46,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 const SizedBox(
                   height: 50,
                 ),
-                Text(
-                  'key_forgot_first_discription'.tr,
+                const Text(
+                  "I don't design clothes. I design dreams",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w300,
@@ -52,22 +60,30 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   height: 10,
                 ),
                 Text(
-                  'key_discrption2_name'.tr,
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.whiteColor),
+                  '- Ralph Lauren'.tr,
+                  style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.whiteColor),
                 ),
                 SizedBox(
                   height: height / 4,
                 ),
                 Text(
-                  'key_forgot_password'.tr,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w300, color: AppColors.whiteColor),
+                  'Forgot Password?'.tr,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: AppColors.whiteColor),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Form(
                     key: _formKey,
-                    autovalidateMode: !isFirstSubmit ? AutovalidateMode.always : AutovalidateMode.disabled,
+                    autovalidateMode: !isFirstSubmit
+                        ? AutovalidateMode.always
+                        : AutovalidateMode.disabled,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -78,7 +94,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         SizedBox(
                           height: SizeUtils.horizontalBlockSize * 4,
                         ),
-                        _buildLoginButton(),
+                        Obx(
+                              () =>
+                          forgotPasswordController.isOtpLoading.value
+                              ? Padding(
+                            padding: EdgeInsets.only(
+                                top: SizeUtils.horizontalBlockSize * 5
+                            ),
+                            child: Loading(),
+                          )
+                              : _buildLoginButton(),
+                        )
+
+
+                        // _buildLoginButton(),
+
                       ],
                     ))
               ],
@@ -91,14 +121,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   RoundButton _buildLoginButton() {
     return RoundButton(
-      buttonLabel: 'key_submit'.tr,
+      buttonLabel: 'Submit'.tr,
       onTap: () async {
-        setState(() {
-          isFirstSubmit = false;
-        });
+        // setState(() {
+        //   isFirstSubmit = false;
+        // });
 
         if (_formKey.currentState!.validate()) {
-          Get.to(OtpVerificationScreen());
+          forgotPasswordController.sendOtp(
+            username: forgotPasswordController.emailOrPhoneController.text,
+          );
+          // forgotPasswordController.otp.value =
         }
       },
       borderColor: AppColors.greyColor0,
@@ -119,7 +152,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       child: Row(
         children: [
           buildCountryPicker(context),
-          SizedBox(
+          const SizedBox(
             width: 30,
             height: 30,
             child: VerticalDivider(
@@ -128,11 +161,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
           Expanded(
             child: TextFieldWidget(
-              textController: _emailOrPhoneController,
+              textController: forgotPasswordController.emailOrPhoneController,
               isReadOnly: false,
               keyboardType: TextInputType.number,
               isObscureText: false,
-              hintText: 'key_enter_number'.tr,
+              hintText: 'Enter Phone number'.tr,
               validator: Validation().phoneNumberValidation,
             ),
           )
@@ -144,26 +177,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   InkWell buildCountryPicker(BuildContext context) {
     return InkWell(
       onTap: () {
-        // showCountryPicker(
-        //   // countryFilter: ["IN", "PK"],
-        //   countryListTheme:
-        //       CountryListThemeData(borderRadius: BorderRadius.circular(15)),
-        //   context: context,
-        //   showPhoneCode:
-        //       true, // optional. Shows phone code before the country name.
-        //   onSelect: (Country country) {
-        //     setState(() {
-        //       selectedCountry = country;
-        //     });
-        //   },
-        // );
+        showCountryPicker(
+          // countryFilter: ["IN", "PK"],
+          countryListTheme:
+          CountryListThemeData(borderRadius: BorderRadius.circular(15)),
+          context: context,
+          showPhoneCode:
+          true, // optional. Shows phone code before the country name.
+          onSelect: (Country country) {
+            setState(() {
+              selectedCountry = country;
+            });
+          },
+        );
       },
       child: Row(
         children: [
           Text(
             CountryUtils.countryCodeToEmoji(selectedCountry.countryCode),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           // const Icon(Icons.keyboard_arrow_down),

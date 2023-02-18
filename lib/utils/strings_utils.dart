@@ -106,10 +106,10 @@ class StringsUtils {
   static const InviteFriends = 'Invite your friends';
 
   /// dashboards
-  static const home = 'Home';
-  static const live = 'Live';
-  static const series = 'Series';
-  static const matches = 'Matches';
+  static const NewDesign = 'New Design';
+  static const orderHistory = 'Order History';
+  static const repeatOrder = 'Repeat Order';
+  static const myProfile = 'My Profile';
   static const videos = 'Videos';
   static const more = 'More';
 

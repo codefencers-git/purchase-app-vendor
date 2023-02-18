@@ -1,34 +1,34 @@
-import 'package:shared_preferences/shared_preferences.dart';
 
-class AppPreference {
-  static late SharedPreferences _prefs;
-  static const _notification = 'notification';
 
-  static Future initSharedPreferences() async {
-    _prefs = await SharedPreferences.getInstance();
+
+import 'package:get_storage/get_storage.dart';
+
+class AppSharedPreference {
+  static final _getStorage = GetStorage();
+
+  static const _userId = 'user_id';
+  static const _jwtToken = 'jwt_Token';
+  static const _onBoarding = 'onBoarding';
+
+
+  // static Future<void> setUserToken(String userToken) async => _getStorage.write(_userToken, userToken);
+  //
+  // static String? get userToken => _getStorage.read(_userToken);
+
+
+  static Future<void> setJwtToken(String jwtToken) async => _getStorage.write(_jwtToken, jwtToken);
+
+  static String? get jwtToken => _getStorage.read(_jwtToken);
+
+  static Future<void> setOnBoarding(bool onBoarding) async => _getStorage.write(_onBoarding, onBoarding);
+
+  static bool? get onBoarding => _getStorage.read(_onBoarding);
+
+
+
+  static int? get userId {
+    return _getStorage.read(_userId);
   }
 
-  static Future setString(String key, String value) async {
-    await _prefs.setString(key, value);
-  }
-
-  static String getString(String key) {
-    print('getString: ${_prefs.getString(key)}');
-    return _prefs.getString(key) ?? "";
-  }
-
-  static Future<void> setNotification({required bool notification}) async {
-    final SharedPreferences prefs = _prefs;
-    prefs.setBool(_notification, notification);
-  }
-
-
-  static bool get notification {
-    final bool value = _prefs.getBool(_notification) ?? false;
-    return value;
-  }
-
-  static void clearData() async {
-    await _prefs.clear();
-  }
+  static void clear() => _getStorage.erase();
 }

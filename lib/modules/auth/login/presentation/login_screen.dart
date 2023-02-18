@@ -1,13 +1,19 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:purchase_vendor/helper/loading_helper.dart';
+import 'package:purchase_vendor/helper/shared_preferences.dart';
 import 'package:purchase_vendor/helper/toast_helper.dart';
-import 'package:purchase_vendor/modules/auth/forgot_password/forgot_password_screen.dart';
+import 'package:purchase_vendor/modules/auth/forgot_password/presentation/forgot_password_screen.dart';
+import 'package:purchase_vendor/modules/auth/login/controller/login_controller_screen.dart';
+import 'package:purchase_vendor/modules/dashbord_screen.dart';
 import 'package:purchase_vendor/modules/new_design/presentation/new_design_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/appconfig.dart';
 import 'package:purchase_vendor/utils/appvalidator.dart';
 import 'package:purchase_vendor/utils/country_utils.dart';
+import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/widgets/custom_text_field.dart';
 import 'package:purchase_vendor/widgets/round_button.dart';
 
@@ -22,13 +28,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var selectedCountry = Country.parse('IN');
-  final TextEditingController _emailOrPhoneController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+
+  LoginController loginController = Get.find();
 
   final _formKey = GlobalKey<FormState>();
   bool isFirstSubmit = true;
 
   final bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +50,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 50,
                 ),
-                Text(
-                  'key_login_first_discription'.tr,
-                  style: const TextStyle(
+                const Text(
+                  "I don't design clothes. I design dreams",
+                  style: TextStyle(
                     fontSize: 15,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w300,
@@ -56,23 +63,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 9,
                 ),
                 Text(
-                  'key_discrption_name'.tr,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.whiteColor),
+                  '- Ralph Lauren'.tr,
+                  style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.whiteColor),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 124,
                 ),
                 Text(
-                  'key_log_in'.tr,
+                  'Login Here'.tr,
                   style: TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w300, color: AppColors.whiteColor.withOpacity(0.8)),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: AppColors.whiteColor.withOpacity(0.8)),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Form(
                   key: _formKey,
-                  autovalidateMode: !isFirstSubmit ? AutovalidateMode.always : AutovalidateMode.disabled,
+                  autovalidateMode: !isFirstSubmit
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -88,7 +102,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildLoginButton()
+                      Obx(
+                        () => loginController.isLoginLoading.value
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                  top: SizeUtils.horizontalBlockSize * 5
+                                ),
+                                child: Loading(),
+                              )
+                            : _buildLoginButton(),
+                      )
                     ],
                   ),
                 ),
@@ -105,12 +128,15 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         InkWell(
-          child: Text(
-            'key_forgot_password'.tr,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: AppColors.whiteColor),
+          child: const Text(
+            'Forgot password',
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w300,
+                color: AppColors.whiteColor),
           ),
           onTap: () {
-            Get.to(ForgotPasswordScreen());
+            Get.to(const ForgotPasswordScreen());
           },
         ),
       ],
@@ -119,24 +145,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   RoundButton _buildLoginButton() {
     return RoundButton(
-      buttonLabel: 'key_submit'.tr,
+      buttonLabel: 'Submit',
       isLoading: _isLoading,
       onTap: () async {
         setState(() {
           isFirstSubmit = false;
         });
-
         if (_formKey.currentState!.validate()) {
-          if (_emailOrPhoneController.text == AppConfig.defMob && _passwordController.text == AppConfig.defPass) {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.setString('email', _emailOrPhoneController.text);
-            Get.to(const NewDesignScreen());
-          } else {
-            showToast.toastMessage('Invalid Credentials');
-          }
-          Get.to(const NewDesignScreen());
+          loginController.loginOtp(
+            username: loginController.emailOrPhoneController.text,
+            password: loginController.passwordController.text,
+          );
+          loginController.jwt.value =
+              loginController.loginDetailsModel.value?.data?.token ?? "";
         }
-        print("done");
       },
       borderColor: AppColors.greyColor0,
       color: AppColors.redColor1,
@@ -148,11 +170,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   _buildPasswordWidget() {
     return TextFieldWidget(
-      textController: _passwordController,
+      textController: loginController.passwordController,
       isReadOnly: false,
       keyboardType: TextInputType.text,
       isObscureText: true,
-      hintText: 'key_enter_password'.tr,
+      hintText: 'Enter Password'.tr,
       validator: Validation().passwordValidation,
     );
   }
@@ -176,11 +198,14 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Expanded(
             child: TextFieldWidget(
-              textController: _emailOrPhoneController,
+              textController: loginController.emailOrPhoneController,
               isReadOnly: false,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter(RegExp(r'[0-9]'), allow: true)
+              ],
               isObscureText: false,
-              hintText: 'key_enter_number'.tr,
+              hintText: 'Enter Phone number'.tr,
               validator: Validation().emailAndPhoneValidation,
             ),
           )
@@ -192,28 +217,28 @@ class _LoginScreenState extends State<LoginScreen> {
   InkWell buildCountryPicker(BuildContext context) {
     return InkWell(
       onTap: () {
-        // showCountryPicker(
-        //   countryFilter: [
-        //     "IN",
-        //   ],
-        //   countryListTheme:
-        //       CountryListThemeData(borderRadius: BorderRadius.circular(15)),
-        //   context: context,
-        //   showPhoneCode:
-        //       true, // optional. Shows phone code before the country name.
-        //   onSelect: (Country country) {
-        //     setState(() {
-        //       selectedCountry = country;
-        //     });
-        //   },
-        // );
+        showCountryPicker(
+          countryFilter: [
+            "IN",
+          ],
+          countryListTheme:
+              CountryListThemeData(borderRadius: BorderRadius.circular(15)),
+          context: context,
+          showPhoneCode: true,
+          // optional. Shows phone code before the country name.
+          onSelect: (Country country) {
+            setState(() {
+              selectedCountry = country;
+            });
+          },
+        );
       },
       child: Row(
         children: [
           Text(
             CountryUtils.countryCodeToEmoji(selectedCountry.countryCode),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           // const Icon(Icons.keyboard_arrow_down),
@@ -224,6 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool isPasswordValid(String password) => password.length <= 8;
+
   bool isEmailValid(String email) {
     String patternNum = r'(^(?:[+0]9)?[0-9]{10,12}$)';
     RegExp regexnum = RegExp(patternNum);

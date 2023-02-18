@@ -91,8 +91,14 @@ class Validation {
     } else {
       var passwordLength = value.length;
       if (passwordLength < 8) {
-        return StringsUtils.passwordshoudbeatleat;
+        return StringsUtils.emptyMessage + 'valid phone number';
       }
+    }
+    return null;
+  }
+  String? currentPasswordValidation(String? value) {
+    if (value!.isEmpty) {
+      return "${StringsUtils.emptyMessage} current password field";
     }
     return null;
   }
@@ -103,7 +109,7 @@ class Validation {
     if (value!.isEmpty) {
       return '${StringsUtils.emptyMessage}phone number';
     } else if (!regex.hasMatch(value)) {
-      return StringsUtils.phoneNumberinvalied;
+      return StringsUtils.emptyMessage + 'valid phone number';
     }
     return null;
   }

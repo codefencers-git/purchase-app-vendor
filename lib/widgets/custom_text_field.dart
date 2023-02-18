@@ -202,6 +202,7 @@ class TextFieldWidget extends StatelessWidget {
       this.validator,
       this.hintText,
       this.maxLenght,
+      this.inputFormatters,
       this.fontsize,
       this.onTapFunction,
       this.color = AppColors.whiteColor,
@@ -215,6 +216,7 @@ class TextFieldWidget extends StatelessWidget {
   int? maxLenght;
   final String? Function(String?)? validator;
   final String? hintText;
+  final List<TextInputFormatter>?  inputFormatters;
 
   final Color? color;
 
@@ -234,6 +236,7 @@ class TextFieldWidget extends StatelessWidget {
         keyboardType: keyboardType,
         validator: validator,
         maxLength: maxLenght,
+        inputFormatters: inputFormatters,
         cursorColor: AppColors.redColor1,
         onTap: onTapFunction,
         style: TextStyle(color: AppColors.blackColor1, fontSize: fontsize, fontWeight: FontWeight.w400),

@@ -12,12 +12,23 @@ class SizeUtils {
   static late double verticalBlockSize;
   static late double appBarHeight;
 
+  // void init(BuildContext context) {
+  //   _mediaQueryData = MediaQuery.of(context);
+  //   screenWidth = _mediaQueryData.size.width;
+  //   screenHeight = _mediaQueryData.size.height;
+  //   // horizontalBlockSize = screenWidth / 150;
+  //   horizontalBlockSize = screenWidth / (isTablet() ? 150 : 100);
+  //
+  //   // verticalBlockSize = screenHeight / 150;
+  //   verticalBlockSize = screenHeight / (100);
+  //   appBarHeight = AppBar().preferredSize.height;
+  // }
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
     // horizontalBlockSize = screenWidth / 150;
-    horizontalBlockSize = screenWidth / (isTablet() ? 150 : 100);
+    horizontalBlockSize = screenWidth / 100;
 
     // verticalBlockSize = screenHeight / 150;
     verticalBlockSize = screenHeight / (100);

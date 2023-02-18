@@ -52,3 +52,48 @@ class AppText extends StatelessWidget {
     );
   }
 }
+
+class Trext extends StatefulWidget {
+  String? txtData;
+  Color txtColor;
+  double txtSize;
+  String? txtFont;
+  FontWeight txtWeight;
+  TextAlign? txtAlign;
+  int? txtLine;
+  TextOverflow? overflow;
+  Trext({
+    super.key,
+    required this.txtData,
+    required this.txtColor,
+    required this.txtSize,
+    required this.txtFont,
+    required this.txtWeight,
+    this.txtAlign,
+    this.txtLine,
+    this.overflow,
+  });
+
+  @override
+  State<Trext> createState() => _TrextState();
+}
+
+class _TrextState extends State<Trext> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Text(
+        widget.txtData!,
+        style: TextStyle(
+          color: widget.txtColor,
+          fontFamily: widget.txtFont,
+          fontSize: widget.txtSize,
+          fontWeight: widget.txtWeight,
+        ),
+        maxLines: widget.txtLine,
+        textAlign: widget.txtAlign,
+        overflow: widget.overflow,
+      ),
+    );
+  }
+}
