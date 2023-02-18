@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: AppColors.primaryColor,
   ));
