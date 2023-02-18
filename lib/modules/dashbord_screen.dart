@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:purchase_vendor/modules/home_page/home_screen.dart';
 import 'package:purchase_vendor/modules/my_profile/presentation/my_profile_screen.dart';
 import 'package:purchase_vendor/modules/order_history/presentation/order_history_screen.dart';
+import 'package:purchase_vendor/modules/upload_design/upload_design_home.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
@@ -25,13 +26,13 @@ class _DashBordScreenState extends State<DashBordScreen>
   Widget build(BuildContext context) {
     SizeUtils().init(context);
     final widgetOptions = [
-      NewDesignScreen(),
+      const UploadDesignHomeScreen(),
       const OrderHistoryScreen(),
       const RepeatOrderScreen(),
       const MyProfileScreen(),
     ];
     final widgetOptionsHomePage = [
-      HomePageScreen(),
+      const HomePageScreen(),
       const OrderHistoryScreen(),
       const RepeatOrderScreen(),
       const MyProfileScreen(),

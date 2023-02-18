@@ -23,7 +23,7 @@ class DesignDetailsScreen extends StatefulWidget {
 class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
   bool tab1Selected = true;
 
-  TextEditingController _fabricController = TextEditingController(text: 'Interlock, Piquet, Fleece');
+  final TextEditingController _fabricController = TextEditingController(text: 'Interlock, Piquet, Fleece');
   bool? sButtonSelect = false;
   bool mButtonSelect = false;
   bool lButtonSelect = false;
@@ -61,7 +61,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
     return Expanded(
       child: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
               approvedBox(),

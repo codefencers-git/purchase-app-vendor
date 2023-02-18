@@ -9,6 +9,8 @@ import 'package:purchase_vendor/helper/shared_pref_services.dart';
 import 'package:purchase_vendor/helper/shared_preferences.dart';
 import 'package:purchase_vendor/modules/auth/login/presentation/login_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
+import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 
 class OnBordingScreen extends StatefulWidget {
   OnBordingScreen({Key? key}) : super(key: key);
@@ -81,7 +83,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                     !isshowButton
                         ? InkWell(
                             onTap: () {
-                              Get.to(LoginScreen());
+                              Navigation.popAndPushNamed(Routes.loginScreen);
                               // Navigator.pushAndRemoveUntil<void>(
                               //   context,
                               //   MaterialPageRoute<void>(
@@ -130,7 +132,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                         ? InkWell(
                             onTap: () async {
                               await _disableOnBoarding();
-                              Get.to(LoginScreen());
+                              Navigation.popAndPushNamed(Routes.loginScreen);
                               // Navigator.pushAndRemoveUntil<void>(
                               //   context,
                               //   MaterialPageRoute<void>(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:purchase_vendor/modules/dashbord_screen.dart';
 import 'package:purchase_vendor/modules/home_page/home_screen.dart';
 import 'package:purchase_vendor/modules/new_design/design_page/design_details_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
 
 import 'package:purchase_vendor/utils/checkbox_state.dart';
+import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
+import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
@@ -88,7 +91,8 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
           Navigator.pop(context);
         },
         onHomePress: () {
-          Get.to(HomePageScreen());
+          Navigation.popAndPushNamed(Routes.dashBordScreen);
+          // Get.to(const DashBordScreen());
         },
       ),
     );
@@ -102,7 +106,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
         margin: const EdgeInsets.only(top: 24.0, left: 16.0, right: 16.0, bottom: 8.0),
         decoration: BoxDecoration(
           color: AppColors.greyColor5,
-          border: Border(
+          border: const Border(
             top: BorderSide(width: .5, color: AppColors.greyColor),
             bottom: BorderSide(width: .5, color: AppColors.greyColor),
             left: BorderSide(width: .5, color: AppColors.greyColor),

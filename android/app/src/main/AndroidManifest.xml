@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.purchase_vendor">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="Purchase Vendor App"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
