@@ -71,7 +71,7 @@ class AppbarWithBackButton extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 18,
                     color: AppColors.whiteColor,
-                    fontFamily: 'Lato-Regular',
+                    fontFamily: AssetsPath.lato,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
               ),

@@ -254,7 +254,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     return Trext(
       txtData: title,
       txtColor: AppColors.blackColor,
-      txtFont: 'Lato-Regular',
+      txtFont: AssetsPath.lato,
       txtSize: 15.0,
       txtWeight: FontWeight.w500,
       txtAlign: TextAlign.start,

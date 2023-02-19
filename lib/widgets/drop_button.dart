@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
 
 Widget dropDown({
@@ -55,7 +56,7 @@ Widget dropDown({
                     txtData: text,
                     txtColor: AppColors.blackColor,
                     txtSize: 14.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w500,
                   )
                 // AppText(
@@ -71,7 +72,7 @@ Widget dropDown({
                       txtSize: 14.0,
                       txtLine: 1,
                       overflow: TextOverflow.ellipsis,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtWeight: FontWeight.w500,
                     ),
             isExpanded: isExpanded ?? true,
@@ -85,7 +86,7 @@ Widget dropDown({
                     txtData: val,
                     txtColor: AppColors.blackColor,
                     txtSize: 12.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w500,
                   )
                   // AppText(

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
 
@@ -48,7 +49,7 @@ class _DesignItemState extends State<DesignItem> {
           txtData: widget.itemCode,
           txtColor: AppColors.redColor1,
           txtSize: 15.0,
-          txtFont: 'Lato-Regular',
+          txtFont: AssetsPath.lato,
           txtWeight: FontWeight.w500,
           txtAlign: null,
         ),
@@ -57,7 +58,7 @@ class _DesignItemState extends State<DesignItem> {
         //   txtData: widget.itemCode,
         //   txtColor: AppColors.blackColor,
         //   txtSize: 10.0,
-        //   txtFont: 'Lato-Regular',
+        //   txtFont: AssetsPath.lato,
         //   txtWeight: FontWeight.w500,
         //   txtAlign: null,
         // ),
@@ -66,7 +67,7 @@ class _DesignItemState extends State<DesignItem> {
           txtData: widget.itemSize,
           txtColor: AppColors.blackColor.withOpacity(0.6),
           txtSize: 12.0,
-          txtFont: 'Lato-Regular',
+          txtFont: AssetsPath.lato,
           txtWeight: FontWeight.w400,
           txtAlign: null,
         ),
@@ -77,7 +78,7 @@ class _DesignItemState extends State<DesignItem> {
               txtData: widget.itemTitle,
               txtColor: AppColors.blackColor.withOpacity(0.6),
               txtSize: 10.0,
-              txtFont: 'Lato-Regular',
+              txtFont: AssetsPath.lato,
               txtWeight: FontWeight.w500,
               txtAlign: null,
             ),
@@ -86,7 +87,7 @@ class _DesignItemState extends State<DesignItem> {
               txtData: widget.itemQty!,
               txtColor: AppColors.blackColor.withOpacity(0.6),
               txtSize: 10.0,
-              txtFont: 'Lato-Regular',
+              txtFont: AssetsPath.lato,
               txtWeight: FontWeight.w500,
               txtAlign: null,
             ),

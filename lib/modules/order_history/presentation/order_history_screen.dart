@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:purchase_vendor/modules/order_history/presentation/box_item_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
@@ -197,13 +198,13 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
               child: child,
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Trext(
             txtData: '$itemName',
             txtColor: AppColors.blackColor,
             txtSize: 10.0,
             txtLine: 1,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w400,
             txtAlign: TextAlign.start,
           ),
@@ -412,7 +413,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       txtData: 'Search',
                       txtColor: AppColors.greyColor7,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w400,
                       txtAlign: TextAlign.start,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:purchase_vendor/modules/repeat_order/presentation/box_repeat_item_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
 import 'package:purchase_vendor/widgets/appbar/appbar_only_title.dart';
@@ -165,7 +166,7 @@ class _RepeatOrderScreenState extends State<RepeatOrderScreen> {
                       txtData: 'Search',
                       txtColor: AppColors.greyColor7,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w400,
                       txtAlign: TextAlign.start,

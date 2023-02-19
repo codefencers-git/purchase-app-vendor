@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:purchase_vendor/modules/home_page/home_screen.dart';
 import 'package:purchase_vendor/modules/my_profile/presentation/my_profile_screen.dart';
+import 'package:purchase_vendor/modules/new_design/controller/new_design_controller.dart';
 import 'package:purchase_vendor/modules/order_history/presentation/order_history_screen.dart';
 import 'package:purchase_vendor/modules/upload_design/upload_design_home.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/strings_utils.dart';
-
-import 'new_design/presentation/new_design_screen.dart';
 import 'repeat_order/presentation/repeat_order_screen.dart';
 
 class DashBordScreen extends StatefulWidget {
@@ -21,6 +21,8 @@ class DashBordScreen extends StatefulWidget {
 class _DashBordScreenState extends State<DashBordScreen>
     with WidgetsBindingObserver {
   bool rattingCount = false;
+
+  NewDesignController newDesignController = Get.put(NewDesignController());
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
 
 class NotificationsTile extends StatefulWidget {
@@ -35,7 +36,7 @@ class _NotificationsTileState extends State<NotificationsTile> {
                 txtData: sampleTime,
                 txtColor: AppColors.blackColor,
                 txtSize: 10.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.start,
               ),

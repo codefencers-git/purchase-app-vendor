@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:purchase_vendor/helper/interceptor_helper.dart';
 import 'package:purchase_vendor/utils/appconfig.dart';
 import 'package:purchase_vendor/utils/exception/app_exception.dart';
@@ -22,10 +23,12 @@ class NetworkAPICall {
         LoggerInterceptor(),
       ]);
 
-  Future<dynamic> post(String url, {Map<String, String>? header, dynamic body}) async {
+  Future<dynamic> post(String url,
+      {Map<String, String>? header, dynamic body}) async {
     try {
       final String fullURL = baseUrl + url;
-      final response = await dio.post(Uri.parse(fullURL), body: body, headers: header);
+      final response =
+          await dio.post(Uri.parse(fullURL), body: body, headers: header);
       log("Post Api Url ===> $fullURL");
       log("Post Api  Header ===> ${response.headers}");
       log("Post Api StatusCode ===> ${response.statusCode}");
@@ -42,7 +45,8 @@ class NetworkAPICall {
     try {
       final String fullURL = baseUrl + url;
       var headers = {
-        'Authorization': 'Basic Y3JpYzM2MGRldmxpdmU6Y0g0YkhzZ3hubkNoODVKclVnOGo=',
+        'Authorization':
+            'Basic Y3JpYzM2MGRldmxpdmU6Y0g0YkhzZ3hubkNoODVKclVnOGo=',
         'Platform': '2',
         'Version': '15.4'
       };
@@ -77,7 +81,8 @@ class NetworkAPICall {
     }
   }
 
-  Future<dynamic> put(String url, {Map<String, String>? header, dynamic body}) async {
+  Future<dynamic> put(String url,
+      {Map<String, String>? header, dynamic body}) async {
     try {
       final String fullURL = baseUrl + url;
       final response = await dio.put(Uri.parse(fullURL), headers: header);
@@ -92,6 +97,37 @@ class NetworkAPICall {
     }
   }
 
+  Future multipartRequest(
+      String url, Map<String, String> body, String methodName,
+      {Map<String, String>? header, File? image, String? imageKey}) async {
+    var client = http.Client();
+    try {
+      String fullURL = baseUrl + url;
+
+      log('API Url: $fullURL', level: 1);
+      log('API body: $body');
+      log('API header: $header');
+
+      var request = http.MultipartRequest(methodName, Uri.parse(fullURL));
+      request.headers.addAll(header!);
+      request.fields.addAll(body);
+      if (image != null) {
+        request.files.add(
+            await http.MultipartFile.fromPath(imageKey!, image.absolute.path));
+      }
+
+      http.StreamedResponse response = await request.send();
+
+      String jsonDataString = await response.stream.bytesToString();
+      final jsonData = jsonDecode(jsonDataString);
+
+      return jsonData;
+    } catch (exception) {
+      client.close();
+      rethrow;
+    }
+  }
+
   dynamic checkResponse(http.Response? response) {
     try {
       if (response != null) {
@@ -99,7 +135,8 @@ class NetworkAPICall {
           case 200:
             try {
               if (response.body.isEmpty) {
-                throw AppException(message: 'Response body is empty', errorCode: 0);
+                throw AppException(
+                    message: 'Response body is empty', errorCode: 0);
               } else {
                 return jsonDecode(response.body);
                 // return json.decode(response.body);
@@ -111,7 +148,8 @@ class NetworkAPICall {
             // return response;
             try {
               if (response.body.isEmpty) {
-                throw AppException(message: 'Response body is empty', errorCode: 0);
+                throw AppException(
+                    message: 'Response body is empty', errorCode: 0);
               } else {
                 return jsonDecode(response.body);
                 // return json.decode(response.body);
@@ -120,11 +158,15 @@ class NetworkAPICall {
               rethrow;
             }
           case 400:
-            throw AppException(message: jsonDecode(response.body)['apierror']['description'], errorCode: 0);
+            throw AppException(
+                message: jsonDecode(response.body)['apierror']['description'],
+                errorCode: 0);
           default:
             try {
               if (response.body.isEmpty) {
-                throw AppException(message: 'Response body is empty', errorCode: response.statusCode);
+                throw AppException(
+                    message: 'Response body is empty',
+                    errorCode: response.statusCode);
               }
               jsonDecode(response.body);
             } catch (e) {

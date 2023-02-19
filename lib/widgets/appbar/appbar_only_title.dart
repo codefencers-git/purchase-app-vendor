@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/assets_path.dart';
 
 class AppBarOnlyTitle extends StatelessWidget {
   AppBarOnlyTitle({
@@ -27,7 +28,7 @@ class AppBarOnlyTitle extends StatelessWidget {
               appbarTitle,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
-                  fontSize: 18, color: AppColors.whiteColor, fontFamily: 'Lato-Regular', fontWeight: FontWeight.w500),
+                  fontSize: 18, color: AppColors.whiteColor, fontFamily: AssetsPath.lato, fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
           ),
