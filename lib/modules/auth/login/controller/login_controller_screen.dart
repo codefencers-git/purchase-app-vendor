@@ -10,6 +10,8 @@ import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
 import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 
 class LoginController extends GetxController {
+
+
   Rx<LoginModel?> loginDetailsModel = LoginModel().obs;
   final TextEditingController emailOrPhoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:purchase_vendor/modules/home_page/home_screen.dart';
+import 'package:purchase_vendor/modules/home_page/presentation/home_screen.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/appbar/appbarwithback.dart';
 import 'package:purchase_vendor/widgets/notification_tile.dart';

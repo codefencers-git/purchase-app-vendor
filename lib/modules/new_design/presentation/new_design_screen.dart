@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:purchase_vendor/modules/new_design/controller/new_design_controller.dart';
 import 'package:purchase_vendor/modules/new_design/design_page/design_details_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
@@ -68,72 +71,97 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
   }
 
   _uploadDesignImage() {
-    return Container(
-      height: 200,
-      margin: const EdgeInsets.only(
-          top: 24.0, left: 16.0, right: 16.0, bottom: 8.0),
-      decoration: BoxDecoration(
-        color: AppColors.greyColor5,
-        border: const Border(
-          top: BorderSide(width: .5, color: AppColors.greyColor),
-          bottom: BorderSide(width: .5, color: AppColors.greyColor),
-          left: BorderSide(width: .5, color: AppColors.greyColor),
-          right: BorderSide(width: .5, color: AppColors.greyColor),
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-      ),
-      child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Stack(
-            children: [
-              Image.asset(
-                GlobalImages.uploadImage,
-                color: AppColors.greyColor,
-                height: 40,
-                width: 40,
-              ),
-              Positioned(
-                right: 16,
-                top: 7,
-                child: Container(
-                  // color: ,
-                  height: 8.5,
-                  width: 8.5,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border:
-                          Border.all(width: 1.5, color: AppColors.redColor1)),
+    return Obx(
+      () => GestureDetector(
+        onTap: () {
+          newDesignController.fileTeamLogo(name: "FirstImage");
+        },
+        child: newDesignController.firstImage.isNotEmpty
+            ? Container(
+                height: 200,
+                width: double.infinity,
+                margin: const EdgeInsets.only(
+                    top: 24.0, left: 16.0, right: 16.0, bottom: 8.0),
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor5,
+                  border: const Border(
+                    top: BorderSide(width: .5, color: AppColors.greyColor),
+                    bottom: BorderSide(width: .5, color: AppColors.greyColor),
+                    left: BorderSide(width: .5, color: AppColors.greyColor),
+                    right: BorderSide(width: .5, color: AppColors.greyColor),
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 ),
-              ),
-              Positioned(
-                right: 2.8,
-                top: 23,
-                child: Icon(
-                  Icons.arrow_upward,
-                  size: 12,
-                  color: AppColors.redColor1,
+                child: Image.file(
+                  File(
+                    newDesignController.firstImage.value,
+                  ),
+                  fit: BoxFit.cover,
                 ),
               )
-            ],
-          ),
-          // Image(
-          //   image: AssetImage(GlobalImages.uploadImage,),
-          //   height: 40,
-          //   width: 40,
-          // ),
-          4.sbh,
-          Trext(
-            txtData: 'Upload Design Image',
-            txtColor: AppColors.greyColor,
-            txtSize: 12.0,
-            txtFont: AssetsPath.lato,
-            txtWeight: FontWeight.w500,
-            txtAlign: null,
-          ),
-        ],
-      )),
+            : Container(
+                height: 200,
+                margin: const EdgeInsets.only(
+                    top: 24.0, left: 16.0, right: 16.0, bottom: 8.0),
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor5,
+                  border: const Border(
+                    top: BorderSide(width: .5, color: AppColors.greyColor),
+                    bottom: BorderSide(width: .5, color: AppColors.greyColor),
+                    left: BorderSide(width: .5, color: AppColors.greyColor),
+                    right: BorderSide(width: .5, color: AppColors.greyColor),
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                ),
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Image.asset(
+                          GlobalImages.uploadImage,
+                          color: AppColors.greyColor,
+                          height: 40,
+                          width: 40,
+                        ),
+                        Positioned(
+                          right: 16,
+                          top: 7,
+                          child: Container(
+                            // color: ,
+                            height: 8.5,
+                            width: 8.5,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    width: 1.5, color: AppColors.redColor1)),
+                          ),
+                        ),
+                        Positioned(
+                          right: 2.8,
+                          top: 23,
+                          child: Icon(
+                            Icons.arrow_upward,
+                            size: 12,
+                            color: AppColors.redColor1,
+                          ),
+                        )
+                      ],
+                    ),
+                    4.sbh,
+                    Trext(
+                      txtData: 'Upload Design Image',
+                      txtColor: AppColors.greyColor,
+                      txtSize: 12.0,
+                      txtFont: AssetsPath.lato,
+                      txtWeight: FontWeight.w500,
+                      txtAlign: null,
+                    ),
+                  ],
+                )),
+              ),
+      ),
     );
   }
 
@@ -211,16 +239,25 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                                 width: .5, color: AppColors.blackColor),
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 11),
-                          child: Trext(
-                            txtData: '56/222',
-                            txtColor: AppColors.blackColor,
-                            txtSize: 14.0,
-                            txtFont: AssetsPath.lato,
-                            txtLine: 6,
-                            txtWeight: FontWeight.w500,
-                            txtAlign: TextAlign.start,
+                        child: TextFormField(
+                          controller: newDesignController.styleNoController,
+                          keyboardType: TextInputType.text,
+                          cursorColor: Colors.transparent,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 10, left: 10, right: 10),
+                            focusColor: Colors.white,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide.none),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(7),
+                                borderSide: BorderSide.none),
                           ),
                         ),
                       ),
@@ -324,16 +361,25 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                       right: BorderSide(width: .5, color: AppColors.blackColor),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 11),
-                    child: Trext(
-                      txtData: '88222',
-                      txtColor: AppColors.blackColor,
-                      txtSize: 14.0,
-                      txtFont: AssetsPath.lato,
-                      txtLine: 6,
-                      txtWeight: FontWeight.w500,
-                      txtAlign: TextAlign.start,
+                  child: TextFormField(
+                    controller: newDesignController.lotNoController,
+                    keyboardType: TextInputType.text,
+                    cursorColor: Colors.transparent,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    decoration: InputDecoration(
+                      contentPadding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      focusColor: Colors.white,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: BorderSide.none),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7),
+                          borderSide: BorderSide.none),
                     ),
                   ),
                 )
@@ -405,16 +451,25 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                       right: BorderSide(width: .5, color: AppColors.blackColor),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 11),
-                    child: Trext(
-                      txtData: 'fsd222',
-                      txtColor: AppColors.blackColor,
-                      txtSize: 14.0,
-                      txtFont: AssetsPath.lato,
-                      txtLine: 6,
-                      txtWeight: FontWeight.w500,
-                      txtAlign: TextAlign.start,
+                  child: TextFormField(
+                    controller: newDesignController.designerController,
+                    keyboardType: TextInputType.text,
+                    cursorColor: Colors.transparent,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    decoration: InputDecoration(
+                      contentPadding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      focusColor: Colors.white,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: BorderSide.none),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7),
+                          borderSide: BorderSide.none),
                     ),
                   ),
                 )
@@ -552,19 +607,22 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
           SizedBox(
             child: TextFormField(
               controller: newDesignController.fabricController,
-              readOnly: true,
+              // readOnly: true,
               keyboardType: TextInputType.text,
+              cursorColor: Colors.transparent,
+
               style: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
               ),
               onChanged: (value) {
-                setState(() {
-                  newDesignController.fabricController.text = value;
-                });
+                // setState(() {
+                //   newDesignController.fabricController.text = value;
+                // });
               },
               decoration: InputDecoration(
+                hintText: "Fabric",
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 22, horizontal: 10),
                 enabledBorder: OutlineInputBorder(
@@ -629,6 +687,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.sButtonSelect =
                           !newDesignController.sButtonSelect!;
+                      newDesignController.sTextButtonSelect.value = "S";
                     });
                   }),
               // 6.sbw,
@@ -653,6 +712,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.mButtonSelect =
                           !newDesignController.mButtonSelect!;
+                      newDesignController.mTextButtonSelect.value = "M";
                     });
                   }),
               // 6.sbw,
@@ -677,6 +737,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.lButtonSelect =
                           !newDesignController.lButtonSelect!;
+                      newDesignController.lTextButtonSelect.value = "L";
                     });
                   }),
               // 6.sbw,
@@ -701,6 +762,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.xLButtonSelect =
                           !newDesignController.xLButtonSelect!;
+                      newDesignController.xLTextButtonSelect.value = "XL";
                     });
                   }),
               // 6.sbw,
@@ -727,6 +789,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.twoXlButtonSelect =
                           !newDesignController.twoXlButtonSelect!;
+                      newDesignController.twoXlTextButtonSelect.value = "2XL";
                     });
                   }),
             ],
@@ -758,6 +821,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.threeXlButtonSelect =
                           !newDesignController.threeXlButtonSelect!;
+                      newDesignController.threeXlTextButtonSelect.value = "3XL";
                     });
                   }),
               // 0.1.sbw,
@@ -784,6 +848,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.fourXlButtonSelect =
                           !newDesignController.fourXlButtonSelect!;
+                      newDesignController.fourXlTextButtonSelect.value = "4XL";
                     });
                   }),
               // 8.sbw,
@@ -810,6 +875,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.fiveXlButtonSelect =
                           !newDesignController.fiveXlButtonSelect!;
+                      newDesignController.fiveXlTextButtonSelect.value = "5XL";
                     });
                   }),
               // 8.sbw,
@@ -836,6 +902,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     setState(() {
                       newDesignController.sizeXlButtonSelect =
                           !newDesignController.sizeXlButtonSelect!;
+                      newDesignController.sizeXlTextButtonSelect.value = "6XL";
                     });
                   }),
               // 8.sbw,
@@ -914,30 +981,66 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              InkWell(
-                child: Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                    color: AppColors.greyColor5,
-                    border: const Border(
-                      top: BorderSide(width: .5, color: AppColors.greyColor),
-                      bottom: BorderSide(width: .5, color: AppColors.greyColor),
-                      left: BorderSide(width: .5, color: AppColors.greyColor),
-                      right: BorderSide(width: .5, color: AppColors.greyColor),
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  child: Center(
-                    child: Trext(
-                      txtData: 'Upload \n Image',
-                      txtColor: AppColors.greyColor,
-                      txtSize: 12.0,
-                      txtFont: AssetsPath.lato,
-                      txtWeight: FontWeight.w500,
-                      txtAlign: TextAlign.start,
-                    ),
-                  ),
+              Obx(
+                () => InkWell(
+                  onTap: () {
+                    newDesignController.fileTeamLogo(name: "SecondImage");
+                  },
+                  child: newDesignController.secondImage.isNotEmpty
+                      ? Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: AppColors.greyColor5,
+                            border: const Border(
+                              top: BorderSide(
+                                  width: .5, color: AppColors.greyColor),
+                              bottom: BorderSide(
+                                  width: .5, color: AppColors.greyColor),
+                              left: BorderSide(
+                                  width: .5, color: AppColors.greyColor),
+                              right: BorderSide(
+                                  width: .5, color: AppColors.greyColor),
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          child: Image.file(
+                            File(
+                              newDesignController.secondImage.value,
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: AppColors.greyColor5,
+                            border: const Border(
+                              top: BorderSide(
+                                  width: .5, color: AppColors.greyColor),
+                              bottom: BorderSide(
+                                  width: .5, color: AppColors.greyColor),
+                              left: BorderSide(
+                                  width: .5, color: AppColors.greyColor),
+                              right: BorderSide(
+                                  width: .5, color: AppColors.greyColor),
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          child: Center(
+                            child: Trext(
+                              txtData: 'Upload \n Image',
+                              txtColor: AppColors.greyColor,
+                              txtSize: 12.0,
+                              txtFont: AssetsPath.lato,
+                              txtWeight: FontWeight.w500,
+                              txtAlign: TextAlign.start,
+                            ),
+                          ),
+                        ),
                 ),
               ),
               16.sbw,
@@ -952,23 +1055,37 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
             ],
           ),
           8.sbh,
-          SizedBox(
+          Container(
             width: 80.0,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              border: Border(
+                top: BorderSide(width: .5, color: AppColors.blackColor),
+                bottom: BorderSide(width: .5, color: AppColors.blackColor),
+                left: BorderSide(width: .5, color: AppColors.blackColor),
+                right: BorderSide(width: .5, color: AppColors.blackColor),
+              ),
+            ),
             child: SizedBox(
               height: 30,
               child: TextFormField(
                 controller: newDesignController.colorController,
                 keyboardType: TextInputType.text,
+                cursorColor: Colors.transparent,
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                 ),
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(top: 10, left: 10, right: 10),
                   focusColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide.none),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(7),
+                      borderSide: BorderSide.none),
                 ),
               ),
             ),
@@ -1025,8 +1142,8 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
           ),
           12.sbw,
           Container(
-            width: 70,
             height: 30,
+            width: 80.0,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               border: Border(
@@ -1036,15 +1153,25 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                 right: BorderSide(width: .5, color: AppColors.blackColor),
               ),
             ),
-            child: Center(
-              child: Trext(
-                txtData: '125',
-                txtColor: AppColors.blackColor,
-                txtSize: 16.0,
-                txtFont: AssetsPath.lato,
-                txtLine: 6,
-                txtWeight: FontWeight.w600,
-                txtAlign: TextAlign.center,
+            child: TextFormField(
+              controller: newDesignController.priceController,
+              keyboardType: TextInputType.text,
+              cursorColor: Colors.transparent,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.w400,
+              ),
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.only(top: 10, left: 10, right: 10),
+                focusColor: Colors.white,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide.none),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: BorderSide.none),
               ),
             ),
           ),

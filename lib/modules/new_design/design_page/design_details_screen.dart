@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:purchase_vendor/modules/home_page/home_screen.dart';
+import 'package:purchase_vendor/modules/home_page/presentation/home_screen.dart';
 import 'package:purchase_vendor/modules/new_design/design_page/edit_design_details_page.dart';
 import 'package:purchase_vendor/modules/new_design/design_page/repeated_order_detail_screen.dart';
 
