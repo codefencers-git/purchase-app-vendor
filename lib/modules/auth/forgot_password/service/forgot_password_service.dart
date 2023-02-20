@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 import 'dart:developer';
 
@@ -19,16 +17,10 @@ class ForgotPasswordService {
       var body = json.encode({
         "username": username,
       });
-      var headers = {
-        'Request-From': 'Postman',
-        'Content-Type': 'application/json',
-        'Accept-Language': 'en',
-        'CF-Token': ''
-      };
+
       final result = await _networkAPICall.post(
         AppConfig.sendOTP,
         body: body,
-        header: headers,
       );
       log("sendOtp Result--->${result.toString()}");
 

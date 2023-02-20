@@ -50,9 +50,11 @@ class LoginService {
         "gender": gender,
         "dob": dob,
       });
-      final headers = {'Content-Type': 'application/json'};
-      final response = await _networkAPICall.post(AppConfig.register,
-          body: body, header: headers);
+
+      final response = await _networkAPICall.post(
+        AppConfig.register,
+        body: body,
+      );
       log("RegisterModel Result--->$response");
       return response;
     } catch (e, st) {
@@ -72,16 +74,10 @@ class LoginService {
         "password": password,
         "device_type": "Android",
       });
-      var headers = {
-        'Request-From': 'Postman',
-        'Content-Type': 'application/json',
-        'Accept-Language': 'en',
-        'CF-Token': ''
-      };
+
       final result = await _networkAPICall.post(
         AppConfig.login,
         body: body,
-        header: headers,
       );
       log("Login Result--->${result.toString()}");
 

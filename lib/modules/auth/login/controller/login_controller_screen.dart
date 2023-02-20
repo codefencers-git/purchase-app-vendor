@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:purchase_vendor/helper/network_helper.dart';
 import 'package:purchase_vendor/helper/shared_preferences.dart';
 import 'package:purchase_vendor/helper/toast_helper.dart';
 
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:purchase_vendor/modules/auth/login/model/login_model.dart';
 import 'package:purchase_vendor/modules/auth/login/service/service_screen.dart';
+import 'package:purchase_vendor/utils/appconfig.dart';
 import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
 import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 
@@ -15,7 +17,7 @@ class LoginController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   RxString jwt = "".obs;
   RxBool isLoginLoading = false.obs;
-
+  static final NetworkAPICall _networkAPICall = NetworkAPICall();
   Future<LoginModel?> loginOtp({
     required String username,
     required String password,
@@ -27,6 +29,15 @@ class LoginController extends GetxController {
         password: password,
         username: username,
       );
+
+      final result1 = await _networkAPICall.post(
+        AppConfig.login,
+        body: {
+          password: password,
+          username: username,
+        },
+      );
+
       if (result["success"] == "1") {
         loginDetailsModel.value = LoginModel.fromJson(result);
         loginDetailsModel.refresh();

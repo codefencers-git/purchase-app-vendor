@@ -5,7 +5,6 @@ import 'package:purchase_vendor/utils/appconfig.dart';
 import 'package:purchase_vendor/utils/exception/app_exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NetworkAPICall {
   static final NetworkAPICall _networkAPICall = NetworkAPICall._internal();
@@ -18,14 +17,41 @@ class NetworkAPICall {
 
   static String baseUrl = AppConfig.baseUrl;
 
+  var headers = {
+    'Request-From': 'Postman',
+    'Content-Type': 'application/json',
+    'Accept-Language': 'en',
+    'CF-Token': ''
+  };
+
   static http.Client get dio => InterceptedClient.build(interceptors: [
         LoggerInterceptor(),
       ]);
 
-  Future<dynamic> post(String url, {Map<String, String>? header, dynamic body}) async {
+  Future<dynamic> post(String url, {dynamic body}) async {
     try {
       final String fullURL = baseUrl + url;
-      final response = await dio.post(Uri.parse(fullURL), body: body, headers: header);
+      final response =
+          await dio.post(Uri.parse(fullURL), body: body, headers: headers);
+
+      log("Post Api Url ===> $fullURL");
+      log("Post Api Header ===> ${response.headers}");
+      log("Post Api StatusCode ===> ${response.statusCode}");
+      log("Post Api response ===> $response");
+      return checkResponse(response);
+    } catch (e) {
+      log("Post Api Error--->$e");
+      dio.close();
+      rethrow;
+    }
+  }
+
+  Future<dynamic> postWithToken(String url, {dynamic body}) async {
+    try {
+      final String fullURL = baseUrl + url;
+      final response =
+          await dio.post(Uri.parse(fullURL), body: body, headers: headers);
+
       log("Post Api Url ===> $fullURL");
       log("Post Api  Header ===> ${response.headers}");
       log("Post Api StatusCode ===> ${response.statusCode}");
@@ -38,17 +64,15 @@ class NetworkAPICall {
     }
   }
 
-  Future<dynamic> get(String url, {Map<String, String>? header}) async {
+  Future<dynamic> get(
+    String url,
+  ) async {
     try {
       final String fullURL = baseUrl + url;
-      var headers = {
-        'Authorization': 'Basic Y3JpYzM2MGRldmxpdmU6Y0g0YkhzZ3hubkNoODVKclVnOGo=',
-        'Platform': '2',
-        'Version': '15.4'
-      };
+
       final response = await dio.get(Uri.parse(fullURL), headers: headers);
       log("Get Api Url ===> $url");
-      log("Get Api  Header ===> ${header}");
+      log("Get Api  Header ===> ${headers}");
       // log("Get Api StatusCode ===> ${response.statusCode}");
       log("Get Api body ===> ${response.body}");
       return checkResponse(response);
@@ -63,9 +87,7 @@ class NetworkAPICall {
     try {
       // String? token1 = await AppPreference.getUser();
       // final header = {"Authorization": "Bearer $token1"};
-      final response = await dio.delete(
-        Uri.parse(url),
-      );
+      final response = await dio.delete(Uri.parse(url), headers: headers);
       log("Delete Api Url ===> $url");
       log("Delete Api  Header ===> ${response.headers}");
       log("Delete Api StatusCode ===> ${response.statusCode}");
@@ -77,12 +99,12 @@ class NetworkAPICall {
     }
   }
 
-  Future<dynamic> put(String url, {Map<String, String>? header, dynamic body}) async {
+  Future<dynamic> put(String url, {dynamic body}) async {
     try {
       final String fullURL = baseUrl + url;
-      final response = await dio.put(Uri.parse(fullURL), headers: header);
+      final response = await dio.put(Uri.parse(fullURL), headers: headers);
       log("Put Api Url ===> $fullURL");
-      log("Put Api  Header ===> $header");
+      log("Put Api  Header ===> $headers");
       log("Put Api StatusCode ===> ${response.statusCode}");
       return response;
     } catch (e) {
@@ -99,7 +121,8 @@ class NetworkAPICall {
           case 200:
             try {
               if (response.body.isEmpty) {
-                throw AppException(message: 'Response body is empty', errorCode: 0);
+                throw AppException(
+                    message: 'Response body is empty', errorCode: 0);
               } else {
                 return jsonDecode(response.body);
                 // return json.decode(response.body);
@@ -111,7 +134,8 @@ class NetworkAPICall {
             // return response;
             try {
               if (response.body.isEmpty) {
-                throw AppException(message: 'Response body is empty', errorCode: 0);
+                throw AppException(
+                    message: 'Response body is empty', errorCode: 0);
               } else {
                 return jsonDecode(response.body);
                 // return json.decode(response.body);
@@ -120,11 +144,15 @@ class NetworkAPICall {
               rethrow;
             }
           case 400:
-            throw AppException(message: jsonDecode(response.body)['apierror']['description'], errorCode: 0);
+            throw AppException(
+                message: jsonDecode(response.body)['apierror']['description'],
+                errorCode: 0);
           default:
             try {
               if (response.body.isEmpty) {
-                throw AppException(message: 'Response body is empty', errorCode: response.statusCode);
+                throw AppException(
+                    message: 'Response body is empty',
+                    errorCode: response.statusCode);
               }
               jsonDecode(response.body);
             } catch (e) {

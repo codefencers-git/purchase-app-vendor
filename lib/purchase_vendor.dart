@@ -1,5 +1,4 @@
 import 'package:purchase_vendor/utils/app_colors.dart';
-import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 import 'package:purchase_vendor/utils/strings_utils.dart';
 import 'package:purchase_vendor/widgets/app_binding.dart';
