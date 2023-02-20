@@ -8,17 +8,16 @@ class NewDesignScreenService {
 
   NewDesignScreenService();
   static Future<dynamic> sendNewDesign() async {
-
-
-
     try {
       var headers = {
         'Request-From': 'Postman',
         'Accept-Language': 'en',
         'CF-Token': '',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc2NjkwNTY5LCJleHAiOjE2NzY3NzY5Njl9.rxZSK3-IZH55kCgEQr6k0vlu-nHFMBr1cwyT9eyC7Fk'
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc2NjkwNTY5LCJleHAiOjE2NzY3NzY5Njl9.rxZSK3-IZH55kCgEQr6k0vlu-nHFMBr1cwyT9eyC7Fk'
       };
-      var request = http.MultipartRequest('POST', Uri.parse('https://api.gartext.com/api/vendor/save-design'));
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('https://api.gartext.com/api/vendor/save-design'));
       request.fields.addAll({
         'vendor_id': '3',
         'style_no': 'stype no3',
@@ -34,23 +33,25 @@ class NewDesignScreenService {
         'status': 'Activated',
         'image_variation_list_titles': 'title1'
       });
-      request.files.add(await http.MultipartFile.fromPath('image', '/C:/Users/darsh/Downloads/purchase_vendor (2)/purchase_vendor/assets/images/d5.png'));
-      request.files.add(await http.MultipartFile.fromPath('image_variation_list', '/C:/Users/darsh/Downloads/purchase_vendor (2)/purchase_vendor/assets/images/d6.png'));
+      request.files.add(await http.MultipartFile.fromPath('image',
+          '/C:/Users/darsh/Downloads/purchase_vendor (2)/purchase_vendor/assets/images/d5.png'));
+      request.files.add(await http.MultipartFile.fromPath(
+          'image_variation_list',
+          '/C:/Users/darsh/Downloads/purchase_vendor (2)/purchase_vendor/assets/images/d6.png'));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
       }
     } catch (e, st) {
       log("error :- $e $st");
     }
-
   }
+
   /// Login
   // static Future<dynamic> sendNewDesign({
   // required File image,
