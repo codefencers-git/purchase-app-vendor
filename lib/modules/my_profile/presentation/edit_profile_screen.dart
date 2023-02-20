@@ -4,6 +4,8 @@ import 'package:purchase_vendor/modules/home_page/presentation/home_screen.dart'
 import 'package:purchase_vendor/modules/my_profile/presentation/my_profile_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
+import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
+import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
 
@@ -61,7 +63,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           Navigator.pop(context);
         },
         onHomePress: () {
-          Get.to(HomePageScreen());
+          Navigation.replaceAll(Routes.dashBordScreen);
         },
       ),
     );

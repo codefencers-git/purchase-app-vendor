@@ -7,7 +7,6 @@ import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
-
 import 'package:purchase_vendor/widgets/app_text.dart';
 import 'package:purchase_vendor/widgets/appbar/homepage_appbar_2.dart';
 import 'package:purchase_vendor/widgets/design_item.dart';
@@ -23,6 +22,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
   HomePageController homePageController = Get.find();
 
   bool showData = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    api();
+    super.initState();
+  }
+
+  api() async {
+    await homePageController.getNewDesign();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -317,11 +327,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   right: SizeUtils.horizontalBlockSize * 5,
                 ),
                 child: DesignItemLive(
-                  img:
-                      "${homePageController.getNewDesignPostModel.value?.data?[index].image}",
+                  img: "${homePageController.getNewDesignPostModel.value?.data?[index].image}",
                   itemName: "BoutiquesAsia",
-                  itemCode:
-                      "${homePageController.getNewDesignPostModel.value?.data?[index].styleNo}",
+                  itemCode: "${homePageController.getNewDesignPostModel.value?.data?[index].styleNo}",
                   itemSize: "",
                   itemQty: "",
                   itemTitle: "",
@@ -380,9 +388,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             });
           }),
           child: Icon(
-            showData == true
-                ? Icons.remove_circle_outline_outlined
-                : Icons.add_circle_outline_outlined,
+            showData == true ? Icons.remove_circle_outline_outlined : Icons.add_circle_outline_outlined,
             size: 25,
           ),
         ),

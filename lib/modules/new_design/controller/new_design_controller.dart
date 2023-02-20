@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:purchase_vendor/modules/new_design/model/new_design_model.dart';
 import 'package:purchase_vendor/helper/toast_helper.dart';
+import 'package:purchase_vendor/modules/new_design/model/new_design_model.dart';
 import 'package:purchase_vendor/modules/new_design/service/new_design_service_screen.dart';
+import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
+import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 
 class NewDesignController extends GetxController {
   final TextEditingController fabricController = TextEditingController();
@@ -14,6 +16,7 @@ class NewDesignController extends GetxController {
   final TextEditingController designerController = TextEditingController();
   final TextEditingController lotNoController = TextEditingController();
   final TextEditingController styleNoController = TextEditingController();
+  Rx<NewDesignPostModel?> newDesignPostModel = NewDesignPostModel().obs;
 
   RxString firstImage = ''.obs;
   RxString secondImage = ''.obs;
@@ -28,7 +31,6 @@ class NewDesignController extends GetxController {
   RxString fourXlTextButtonSelect = ''.obs;
   RxString fiveXlTextButtonSelect = ''.obs;
   RxString sizeXlTextButtonSelect = ''.obs;
-
 
   bool? sButtonSelect = false;
   bool mButtonSelect = false;
@@ -46,6 +48,11 @@ class NewDesignController extends GetxController {
   RxString categoryDropDownValue = ''.obs;
   RxString brandsDropDownValue = ''.obs;
   RxBool isNewDesignLoading = false.obs;
+
+  @override
+  void onInit() async {
+    super.onInit();
+  }
 
   Future<void> fileTeamLogo({String? name}) async {
     try {
@@ -70,17 +77,48 @@ class NewDesignController extends GetxController {
     }
   }
 
-  Future<NewDesignPostModel?> sendNewDesign() async {
+  Future<NewDesignPostModel?> sendNewDesign({
+    String? vendorId,
+    String? styleNo,
+    String? brandId,
+    String? categoryId,
+    String? lotNumber,
+    String? seasonId,
+    String? designers,
+    String? gender,
+    String? fabric,
+    String? size,
+    String? price,
+    String? status,
+    String? imageVariationListTitles2,
+    String? image1,
+  }) async {
     try {
       isNewDesignLoading.value = true;
 
-      final result = await NewDesignScreenService.sendNewDesign();
+      final result = await NewDesignScreenService.sendNewDesign(
+        brandId: brandId,
+        categoryId: categoryId,
+        designers: designers,
+        fabric: fabric,
+        gender: gender,
+        image1: image1,
+        imageVariationListTitles2: imageVariationListTitles2,
+        lotNumber: lotNumber,
+        price: price,
+        seasonId: seasonId,
+        size: size,
+        status: status,
+        styleNo: styleNo,
+        vendorId: vendorId,
+      );
       if (result["success"] == "1") {
         showToast.toastMessage("${result["message"]}");
 
-        // senOtpModel.value = SenOtpModel.fromJson(result);
-        // senOtpModel.refresh();
-        // // Navigation.popAndPushNamed(Routes.otpVerificationScreen);
+        newDesignPostModel.value = NewDesignPostModel.fromJson(result);
+        showToast.toastMessage("${result["success"]}");
+        Navigation.popAndPushNamed(Routes.dashBordScreen);
+
         clearController();
       } else {
         showToast.toastMessage("${result["message"]}");
@@ -88,7 +126,7 @@ class NewDesignController extends GetxController {
     } catch (e, st) {
       isNewDesignLoading.value = false;
 
-      log("e:- $e st:- $st");
+      log("eresultresult:- $e st:- $st");
     } finally {
       isNewDesignLoading.value = false;
     }

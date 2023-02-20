@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:purchase_vendor/helper/shared_preferences.dart';
+import 'package:purchase_vendor/helper/toast_helper.dart';
 import 'package:purchase_vendor/modules/new_design/controller/new_design_controller.dart';
 import 'package:purchase_vendor/modules/new_design/design_page/design_details_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
+import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
+import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
@@ -21,7 +24,7 @@ class NewDesignScreen extends StatefulWidget {
 class _NewDesignScreenState extends State<NewDesignScreen> {
   NewDesignController newDesignController = Get.find();
 
-  int currentIndex = 0;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,32 +32,35 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
       appBar: _getAppBar(context),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _uploadDesignImage(),
-              8.sbh,
-              _firstRow(),
-              8.sbh,
-              _secondRow(),
-              8.sbh,
-              _thirdRow(),
-              8.sbh,
-              _selectGenderRow(),
-              20.sbh,
-              _getDescriptionTitle(),
-              8.sbh,
-              _getFabricBox(),
-              8.sbh,
-              _getSizesBox(),
-              8.sbh,
-              _getColorsBox(),
-              24.sbh,
-              _getPriceTitle(),
-              8.sbh,
-              _getPriceBox(),
-              16.sbh,
-              _buildSubmit(),
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                _uploadDesignImage(),
+                8.sbh,
+                _firstRow(),
+                8.sbh,
+                _secondRow(),
+                8.sbh,
+                _thirdRow(),
+                8.sbh,
+                _selectGenderRow(),
+                20.sbh,
+                _getDescriptionTitle(),
+                8.sbh,
+                _getFabricBox(),
+                8.sbh,
+                _getSizesBox(),
+                8.sbh,
+                _getColorsBox(),
+                24.sbh,
+                _getPriceTitle(),
+                8.sbh,
+                _getPriceBox(),
+                16.sbh,
+                _buildSubmit(),
+              ],
+            ),
           ),
         ),
       ),
@@ -64,8 +70,11 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
   _getAppBar(BuildContext context) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(65.0),
-      child: AppBarOnlyTitle(
-        appbarTitle: 'New Design',
+      child: GestureDetector(
+        onTap: () {},
+        child: AppBarOnlyTitle(
+          appbarTitle: 'New Design',
+        ),
       ),
     );
   }
@@ -80,8 +89,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
             ? Container(
                 height: 200,
                 width: double.infinity,
-                margin: const EdgeInsets.only(
-                    top: 24.0, left: 16.0, right: 16.0, bottom: 8.0),
+                margin: const EdgeInsets.only(top: 24.0, left: 16.0, right: 16.0, bottom: 8.0),
                 decoration: BoxDecoration(
                   color: AppColors.greyColor5,
                   border: const Border(
@@ -101,8 +109,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
               )
             : Container(
                 height: 200,
-                margin: const EdgeInsets.only(
-                    top: 24.0, left: 16.0, right: 16.0, bottom: 8.0),
+                margin: const EdgeInsets.only(top: 24.0, left: 16.0, right: 16.0, bottom: 8.0),
                 decoration: BoxDecoration(
                   color: AppColors.greyColor5,
                   border: const Border(
@@ -133,9 +140,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                             height: 8.5,
                             width: 8.5,
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    width: 1.5, color: AppColors.redColor1)),
+                                shape: BoxShape.circle, border: Border.all(width: 1.5, color: AppColors.redColor1)),
                           ),
                         ),
                         Positioned(
@@ -196,14 +201,10 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                           border: Border(
-                            top: BorderSide(
-                                width: .5, color: AppColors.blackColor),
-                            bottom: BorderSide(
-                                width: .5, color: AppColors.blackColor),
-                            left: BorderSide(
-                                width: .5, color: AppColors.blackColor),
-                            right: BorderSide(
-                                width: .5, color: AppColors.blackColor),
+                            top: BorderSide(width: .5, color: AppColors.blackColor),
+                            bottom: BorderSide(width: .5, color: AppColors.blackColor),
+                            left: BorderSide(width: .5, color: AppColors.blackColor),
+                            right: BorderSide(width: .5, color: AppColors.blackColor),
                           ),
                         ),
                         child: Padding(
@@ -229,14 +230,10 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                           border: Border(
-                            top: BorderSide(
-                                width: .5, color: AppColors.blackColor),
-                            bottom: BorderSide(
-                                width: .5, color: AppColors.blackColor),
-                            left: BorderSide(
-                                width: .5, color: AppColors.blackColor),
-                            right: BorderSide(
-                                width: .5, color: AppColors.blackColor),
+                            top: BorderSide(width: .5, color: AppColors.blackColor),
+                            bottom: BorderSide(width: .5, color: AppColors.blackColor),
+                            left: BorderSide(width: .5, color: AppColors.blackColor),
+                            right: BorderSide(width: .5, color: AppColors.blackColor),
                           ),
                         ),
                         child: TextFormField(
@@ -249,15 +246,12 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                             fontWeight: FontWeight.w400,
                           ),
                           decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 10, left: 10, right: 10),
+                            contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                             focusColor: Colors.white,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                                borderSide: BorderSide.none),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                                borderSide: BorderSide.none),
+                                borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
+                            focusedBorder:
+                                OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
                           ),
                         ),
                       ),
@@ -274,7 +268,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Trext(
-                  txtData: 'Brands',
+                  txtData: 'Brand',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
                   txtFont: AssetsPath.lato,
@@ -288,8 +282,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     dropDownList: newDesignController.brandsDropDownList,
                     dropDownValue: newDesignController.brandsDropDownValue,
                     onChanged: (value) {
-                      newDesignController.brandsDropDownValue.value =
-                          value.toString();
+                      newDesignController.brandsDropDownValue.value = value.toString();
                     },
                   ),
                 ),
@@ -326,8 +319,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                   dropDownList: newDesignController.categoryDropDownList,
                   dropDownValue: newDesignController.categoryDropDownValue,
                   onChanged: (value) {
-                    newDesignController.categoryDropDownValue.value =
-                        value.toString();
+                    newDesignController.categoryDropDownValue.value = value.toString();
                   },
                 ),
               ],
@@ -355,8 +347,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     border: Border(
                       top: BorderSide(width: .5, color: AppColors.blackColor),
-                      bottom:
-                          BorderSide(width: .5, color: AppColors.blackColor),
+                      bottom: BorderSide(width: .5, color: AppColors.blackColor),
                       left: BorderSide(width: .5, color: AppColors.blackColor),
                       right: BorderSide(width: .5, color: AppColors.blackColor),
                     ),
@@ -371,15 +362,11 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                       fontWeight: FontWeight.w400,
                     ),
                     decoration: InputDecoration(
-                      contentPadding:
-                          const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                       focusColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: BorderSide.none),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(7),
-                          borderSide: BorderSide.none),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
+                      focusedBorder:
+                          OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
                     ),
                   ),
                 )
@@ -404,7 +391,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Trext(
-                  txtData: 'Seasons',
+                  txtData: 'Season',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
                   txtFont: AssetsPath.lato,
@@ -416,8 +403,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                   dropDownList: newDesignController.seasonsDropDownList,
                   dropDownValue: newDesignController.seasonsDropDownValue,
                   onChanged: (value) {
-                    newDesignController.seasonsDropDownValue.value =
-                        value.toString();
+                    newDesignController.seasonsDropDownValue.value = value.toString();
                   },
                 ),
               ],
@@ -445,8 +431,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     border: Border(
                       top: BorderSide(width: .5, color: AppColors.blackColor),
-                      bottom:
-                          BorderSide(width: .5, color: AppColors.blackColor),
+                      bottom: BorderSide(width: .5, color: AppColors.blackColor),
                       left: BorderSide(width: .5, color: AppColors.blackColor),
                       right: BorderSide(width: .5, color: AppColors.blackColor),
                     ),
@@ -461,15 +446,11 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                       fontWeight: FontWeight.w400,
                     ),
                     decoration: InputDecoration(
-                      contentPadding:
-                          const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                       focusColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: BorderSide.none),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(7),
-                          borderSide: BorderSide.none),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
+                      focusedBorder:
+                          OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
                     ),
                   ),
                 )
@@ -503,8 +484,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                   children: [
                     Radio(
                       visualDensity: const VisualDensity(
-                          horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity),
+                          horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       value: 'Female',
                       groupValue: newDesignController.gender,
@@ -532,8 +512,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                   children: [
                     Radio(
                       visualDensity: const VisualDensity(
-                          horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity),
+                          horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       value: 'Male',
                       groupValue: newDesignController.gender,
@@ -623,24 +602,23 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
               },
               decoration: InputDecoration(
                 hintText: "Fabric",
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 22, horizontal: 10),
+                contentPadding: const EdgeInsets.symmetric(vertical: 22, horizontal: 10),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    color: AppColors.redColor,
+                  borderSide: const BorderSide(
+                    color: AppColors.blackColor,
                   ),
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    color: AppColors.redColor,
+                  borderSide: const BorderSide(
+                    color: AppColors.blackColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    color: AppColors.redColor,
+                  borderSide: const BorderSide(
+                    color: AppColors.blackColor,
                   ),
                 ),
                 focusColor: Colors.white,
@@ -676,17 +654,12 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.sButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.sButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.sButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.sButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: 'S',
                   onTap: () {
                     setState(() {
-                      newDesignController.sButtonSelect =
-                          !newDesignController.sButtonSelect!;
+                      newDesignController.sButtonSelect = !newDesignController.sButtonSelect!;
                       newDesignController.sTextButtonSelect.value = "S";
                     });
                   }),
@@ -701,17 +674,12 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.mButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.mButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.mButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.mButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: 'M',
                   onTap: () {
                     setState(() {
-                      newDesignController.mButtonSelect =
-                          !newDesignController.mButtonSelect!;
+                      newDesignController.mButtonSelect = !newDesignController.mButtonSelect!;
                       newDesignController.mTextButtonSelect.value = "M";
                     });
                   }),
@@ -726,17 +694,12 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.lButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.lButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.lButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.lButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: 'L',
                   onTap: () {
                     setState(() {
-                      newDesignController.lButtonSelect =
-                          !newDesignController.lButtonSelect!;
+                      newDesignController.lButtonSelect = !newDesignController.lButtonSelect!;
                       newDesignController.lTextButtonSelect.value = "L";
                     });
                   }),
@@ -751,26 +714,19 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.xLButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.xLButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.xLButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.xLButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: 'XL',
                   onTap: () {
                     setState(() {
-                      newDesignController.xLButtonSelect =
-                          !newDesignController.xLButtonSelect!;
+                      newDesignController.xLButtonSelect = !newDesignController.xLButtonSelect!;
                       newDesignController.xLTextButtonSelect.value = "XL";
                     });
                   }),
               // 6.sbw,
               _getCustomCheckBox(
-                  height:
-                      newDesignController.twoXlButtonSelect == true ? 18 : 18,
-                  width:
-                      newDesignController.twoXlButtonSelect == true ? 18 : 18,
+                  height: newDesignController.twoXlButtonSelect == true ? 18 : 18,
+                  width: newDesignController.twoXlButtonSelect == true ? 18 : 18,
                   child: newDesignController.twoXlButtonSelect == true
                       ? const Icon(
                           Icons.check,
@@ -778,17 +734,12 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.twoXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.twoXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.twoXlButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.twoXlButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: '2XL',
                   onTap: () {
                     setState(() {
-                      newDesignController.twoXlButtonSelect =
-                          !newDesignController.twoXlButtonSelect!;
+                      newDesignController.twoXlButtonSelect = !newDesignController.twoXlButtonSelect!;
                       newDesignController.twoXlTextButtonSelect.value = "2XL";
                     });
                   }),
@@ -799,10 +750,8 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _getCustomCheckBox(
-                  height:
-                      newDesignController.threeXlButtonSelect == true ? 18 : 18,
-                  width:
-                      newDesignController.threeXlButtonSelect == true ? 18 : 18,
+                  height: newDesignController.threeXlButtonSelect == true ? 18 : 18,
+                  width: newDesignController.threeXlButtonSelect == true ? 18 : 18,
                   child: newDesignController.threeXlButtonSelect == true
                       ? const Icon(
                           Icons.check,
@@ -810,26 +759,19 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.threeXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.threeXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.threeXlButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.threeXlButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: '3XL',
                   onTap: () {
                     setState(() {
-                      newDesignController.threeXlButtonSelect =
-                          !newDesignController.threeXlButtonSelect!;
+                      newDesignController.threeXlButtonSelect = !newDesignController.threeXlButtonSelect!;
                       newDesignController.threeXlTextButtonSelect.value = "3XL";
                     });
                   }),
               // 0.1.sbw,
               _getCustomCheckBox(
-                  height:
-                      newDesignController.fourXlButtonSelect == true ? 18 : 18,
-                  width:
-                      newDesignController.fourXlButtonSelect == true ? 18 : 18,
+                  height: newDesignController.fourXlButtonSelect == true ? 18 : 18,
+                  width: newDesignController.fourXlButtonSelect == true ? 18 : 18,
                   child: newDesignController.fourXlButtonSelect == true
                       ? const Icon(
                           Icons.check,
@@ -837,26 +779,19 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.fourXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.fourXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.fourXlButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.fourXlButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: '4XL',
                   onTap: () {
                     setState(() {
-                      newDesignController.fourXlButtonSelect =
-                          !newDesignController.fourXlButtonSelect!;
+                      newDesignController.fourXlButtonSelect = !newDesignController.fourXlButtonSelect!;
                       newDesignController.fourXlTextButtonSelect.value = "4XL";
                     });
                   }),
               // 8.sbw,
               _getCustomCheckBox(
-                  height:
-                      newDesignController.fiveXlButtonSelect == true ? 18 : 18,
-                  width:
-                      newDesignController.fiveXlButtonSelect == true ? 18 : 18,
+                  height: newDesignController.fiveXlButtonSelect == true ? 18 : 18,
+                  width: newDesignController.fiveXlButtonSelect == true ? 18 : 18,
                   child: newDesignController.fiveXlButtonSelect == true
                       ? const Icon(
                           Icons.check,
@@ -864,26 +799,19 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.fiveXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.fiveXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.fiveXlButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.fiveXlButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: '5XL',
                   onTap: () {
                     setState(() {
-                      newDesignController.fiveXlButtonSelect =
-                          !newDesignController.fiveXlButtonSelect!;
+                      newDesignController.fiveXlButtonSelect = !newDesignController.fiveXlButtonSelect!;
                       newDesignController.fiveXlTextButtonSelect.value = "5XL";
                     });
                   }),
               // 8.sbw,
               _getCustomCheckBox(
-                  height:
-                      newDesignController.sizeXlButtonSelect == true ? 18 : 18,
-                  width:
-                      newDesignController.sizeXlButtonSelect == true ? 18 : 18,
+                  height: newDesignController.sizeXlButtonSelect == true ? 18 : 18,
+                  width: newDesignController.sizeXlButtonSelect == true ? 18 : 18,
                   child: newDesignController.sizeXlButtonSelect == true
                       ? const Icon(
                           Icons.check,
@@ -891,17 +819,12 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           color: Colors.white,
                         )
                       : const SizedBox(),
-                  borderColor: newDesignController.sizeXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.grey,
-                  color: newDesignController.sizeXlButtonSelect == true
-                      ? AppColors.redColor
-                      : Colors.white,
+                  borderColor: newDesignController.sizeXlButtonSelect == true ? AppColors.redColor : Colors.grey,
+                  color: newDesignController.sizeXlButtonSelect == true ? AppColors.redColor : Colors.white,
                   itemName: '6XL',
                   onTap: () {
                     setState(() {
-                      newDesignController.sizeXlButtonSelect =
-                          !newDesignController.sizeXlButtonSelect!;
+                      newDesignController.sizeXlButtonSelect = !newDesignController.sizeXlButtonSelect!;
                       newDesignController.sizeXlTextButtonSelect.value = "6XL";
                     });
                   }),
@@ -993,17 +916,12 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           decoration: BoxDecoration(
                             color: AppColors.greyColor5,
                             border: const Border(
-                              top: BorderSide(
-                                  width: .5, color: AppColors.greyColor),
-                              bottom: BorderSide(
-                                  width: .5, color: AppColors.greyColor),
-                              left: BorderSide(
-                                  width: .5, color: AppColors.greyColor),
-                              right: BorderSide(
-                                  width: .5, color: AppColors.greyColor),
+                              top: BorderSide(width: .5, color: AppColors.greyColor),
+                              bottom: BorderSide(width: .5, color: AppColors.greyColor),
+                              left: BorderSide(width: .5, color: AppColors.greyColor),
+                              right: BorderSide(width: .5, color: AppColors.greyColor),
                             ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5.0)),
+                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           ),
                           child: Image.file(
                             File(
@@ -1018,17 +936,12 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                           decoration: BoxDecoration(
                             color: AppColors.greyColor5,
                             border: const Border(
-                              top: BorderSide(
-                                  width: .5, color: AppColors.greyColor),
-                              bottom: BorderSide(
-                                  width: .5, color: AppColors.greyColor),
-                              left: BorderSide(
-                                  width: .5, color: AppColors.greyColor),
-                              right: BorderSide(
-                                  width: .5, color: AppColors.greyColor),
+                              top: BorderSide(width: .5, color: AppColors.greyColor),
+                              bottom: BorderSide(width: .5, color: AppColors.greyColor),
+                              left: BorderSide(width: .5, color: AppColors.greyColor),
+                              right: BorderSide(width: .5, color: AppColors.greyColor),
                             ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5.0)),
+                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           ),
                           child: Center(
                             child: Trext(
@@ -1080,12 +993,9 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(top: 10, left: 10, right: 10),
                   focusColor: Colors.white,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: BorderSide.none),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide: BorderSide.none),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
+                  focusedBorder:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
                 ),
               ),
             ),
@@ -1163,15 +1073,10 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                 fontWeight: FontWeight.w400,
               ),
               decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.only(top: 10, left: 10, right: 10),
+                contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                 focusColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide.none),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(7),
-                    borderSide: BorderSide.none),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
               ),
             ),
           ),
@@ -1191,28 +1096,61 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
 
   _buildSubmit() {
     return Container(
-      margin: EdgeInsets.only(bottom: 12.0),
+      margin: const EdgeInsets.only(bottom: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
             onTap: () async {
               setState(() {});
-              // newDesignController.sendNewDesign();
-              // if (_formKey.currentState!.validate()) {
-              //   Get.to(RegisterUserPage(
-              //     addUser: 'Admin',
-              //   ));
-              // }
-              Get.to(const DesignDetailsScreen());
+              if ((newDesignController.firstImage.isNotEmpty &&
+                      newDesignController.secondImage.isNotEmpty &&
+                      newDesignController.styleNoController.text.isNotEmpty &&
+                      newDesignController.lotNoController.text.isNotEmpty &&
+                      newDesignController.designerController.text.isNotEmpty &&
+                      newDesignController.brandsDropDownValue.value.isNotEmpty &&
+                      newDesignController.categoryDropDownValue.value.isNotEmpty &&
+                      newDesignController.seasonsDropDownValue.value.isNotEmpty &&
+                      newDesignController.gender.isNotEmpty &&
+                      newDesignController.fabricController.text.isNotEmpty &&
+                      newDesignController.colorController.text.isNotEmpty &&
+                      newDesignController.priceController.text.isNotEmpty) &&
+                  (newDesignController.sTextButtonSelect.isNotEmpty ||
+                      newDesignController.mTextButtonSelect.isNotEmpty ||
+                      newDesignController.lTextButtonSelect.isNotEmpty ||
+                      newDesignController.xLTextButtonSelect.isNotEmpty ||
+                      newDesignController.twoXlTextButtonSelect.isNotEmpty ||
+                      newDesignController.threeXlTextButtonSelect.isNotEmpty ||
+                      newDesignController.fourXlTextButtonSelect.isNotEmpty ||
+                      newDesignController.fiveXlTextButtonSelect.isNotEmpty ||
+                      newDesignController.sizeXlTextButtonSelect.isNotEmpty)) {
+                newDesignController.sendNewDesign(
+                  styleNo: newDesignController.styleNoController.text,
+                  gender: newDesignController.gender,
+                  seasonId: newDesignController.seasonsDropDownValue.value,
+                  price: newDesignController.priceController.text,
+                  lotNumber: newDesignController.lotNoController.text,
+                  fabric: newDesignController.fabricController.text,
+                  brandId: newDesignController.brandsDropDownValue.value,
+                  categoryId: newDesignController.categoryDropDownValue.value,
+                  designers: newDesignController.designerController.text,
+                  status: newDesignController.colorController.text,
+                  imageVariationListTitles2: newDesignController.firstImage.value,
+                  image1: newDesignController.secondImage.value,
+                  vendorId: AppSharedPreference.jwtId,
+                  size:
+                      "${newDesignController.sTextButtonSelect.value},${newDesignController.mTextButtonSelect.value},${newDesignController.lTextButtonSelect.value},${newDesignController.twoXlTextButtonSelect.value},${newDesignController.xLTextButtonSelect.value},${newDesignController.threeXlTextButtonSelect.value},${newDesignController.fourXlTextButtonSelect.value},${newDesignController.fiveXlTextButtonSelect.value},${newDesignController.sizeXlTextButtonSelect.value}",
+                );
+                Navigation.popAndPushNamed(Routes.dashBordScreen);
+              } else {
+                showToast.toastMessage("error");
+              }
             },
             child: Container(
               width: 256,
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  color: AppColors.redColor1),
+              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+              decoration:
+                  BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(5.0)), color: AppColors.redColor1),
               child: const Text(
                 'SUBMIT',
                 style: TextStyle(

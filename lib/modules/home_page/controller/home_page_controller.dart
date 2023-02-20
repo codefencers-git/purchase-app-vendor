@@ -9,25 +9,23 @@ import 'package:purchase_vendor/helper/toast_helper.dart';
 import 'package:purchase_vendor/modules/new_design/service/new_design_service_screen.dart';
 
 class HomePageController extends GetxController {
-  Rx<GetNewDesignPostModel?> getNewDesignPostModel =
-      GetNewDesignPostModel().obs;
+  Rx<GetNewDesignPostModel?> getNewDesignPostModel = GetNewDesignPostModel().obs;
 
   RxBool isNewDesignLoading = false.obs;
 
   @override
   void onInit() async {
     super.onInit();
-    sendNewDesign();
+    getNewDesign();
   }
 
-  Future<GetNewDesignPostModel?> sendNewDesign() async {
+  Future<GetNewDesignPostModel?> getNewDesign() async {
     try {
       isNewDesignLoading.value = true;
       final result = await HomePageService.getNewDesign();
       if (result["success"] == "1") {
         getNewDesignPostModel.value = GetNewDesignPostModel.fromJson(result);
-        print(
-            "success getNewDesignPostModel:- ${getNewDesignPostModel.value?.toJson()}");
+        print("success getNewDesignPostModel:- ${getNewDesignPostModel.value?.toJson()}");
       } else {
         showToast.toastMessage("${result["message"]}");
       }

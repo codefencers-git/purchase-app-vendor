@@ -10,8 +10,6 @@ import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
 import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 
 class LoginController extends GetxController {
-
-
   Rx<LoginModel?> loginDetailsModel = LoginModel().obs;
   final TextEditingController emailOrPhoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -31,9 +29,10 @@ class LoginController extends GetxController {
       );
       if (result["success"] == "1") {
         loginDetailsModel.value = LoginModel.fromJson(result);
+        print("loginDetailsModel.value${loginDetailsModel.value?.toJson()}");
         loginDetailsModel.refresh();
-        AppSharedPreference.setJwtToken(
-            loginDetailsModel.value?.data?.token ?? "");
+        AppSharedPreference.setJwtToken(loginDetailsModel.value?.data?.token ?? "");
+        AppSharedPreference.setJwtId(loginDetailsModel.value?.data?.id ?? "");
         Navigation.popAndPushNamed(Routes.dashBordScreen);
         clearLoginController();
       } else {
