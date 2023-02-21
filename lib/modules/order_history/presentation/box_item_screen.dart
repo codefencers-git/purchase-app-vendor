@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
@@ -87,7 +88,7 @@ class _DesignBoxItemState extends State<DesignBoxItem> {
           txtData: widget.itemCode,
           txtColor: AppColors.redColor1,
           txtSize: 15.0,
-          txtFont: 'Lato-Regular',
+          txtFont: AssetsPath.lato,
           txtWeight: FontWeight.w500,
           txtAlign: null,
         ),
@@ -96,7 +97,7 @@ class _DesignBoxItemState extends State<DesignBoxItem> {
           txtData: widget.itemSize,
           txtColor: AppColors.blackColor,
           txtSize: 14.0,
-          txtFont: 'Lato-Regular',
+          txtFont: AssetsPath.lato,
           txtWeight: FontWeight.w600,
           txtAlign: null,
         ),
@@ -107,7 +108,7 @@ class _DesignBoxItemState extends State<DesignBoxItem> {
               txtData: widget.itemTitle,
               txtColor: AppColors.blackColor,
               txtSize: 14.0,
-              txtFont: 'Lato-Regular',
+              txtFont: AssetsPath.lato,
               txtWeight: FontWeight.w600,
               txtAlign: null,
             ),
@@ -116,7 +117,7 @@ class _DesignBoxItemState extends State<DesignBoxItem> {
               txtData: widget.itemQty!,
               txtColor: AppColors.blackColor,
               txtSize: 14.0,
-              txtFont: 'Lato-Regular',
+              txtFont: AssetsPath.lato,
               txtWeight: FontWeight.w600,
               txtAlign: null,
             ),

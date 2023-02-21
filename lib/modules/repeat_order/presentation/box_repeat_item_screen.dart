@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
 
@@ -45,7 +46,7 @@ class _DesignRepeatBoxItemState extends State<DesignRepeatBoxItem> {
               txtData: widget.itemCode,
               txtColor: AppColors.redColor1,
               txtSize: 15.0,
-              txtFont: 'Lato-Regular',
+              txtFont: AssetsPath.lato,
               txtWeight: FontWeight.w500,
               txtAlign: null,
             ),
@@ -54,7 +55,7 @@ class _DesignRepeatBoxItemState extends State<DesignRepeatBoxItem> {
               txtData: widget.itemSize,
               txtColor: AppColors.greyColor4,
               txtSize: 14.0,
-              txtFont: 'Lato-Regular',
+              txtFont: AssetsPath.lato,
               txtWeight: FontWeight.w400,
               txtAlign: null,
             ),
@@ -65,7 +66,7 @@ class _DesignRepeatBoxItemState extends State<DesignRepeatBoxItem> {
                   txtData: widget.itemTitle,
                   txtColor: AppColors.greyColor4,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w400,
                   txtAlign: null,
                 ),
@@ -74,7 +75,7 @@ class _DesignRepeatBoxItemState extends State<DesignRepeatBoxItem> {
                   txtData: widget.itemQty!,
                   txtColor: AppColors.greyColor4,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w400,
                   txtAlign: null,
                 ),
@@ -98,7 +99,7 @@ class _DesignRepeatBoxItemState extends State<DesignRepeatBoxItem> {
                   txtData: '22/2/2022/5234/W3',
                   txtColor: AppColors.redColor1,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtLine: 6,
                   txtWeight: FontWeight.w400,
                   txtAlign: TextAlign.center,
@@ -124,7 +125,7 @@ class _DesignRepeatBoxItemState extends State<DesignRepeatBoxItem> {
                   txtData: '26/2/2022/5234/W3',
                   txtColor: AppColors.whiteColor,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtLine: 6,
                   txtWeight: FontWeight.w400,
                   txtAlign: TextAlign.center,

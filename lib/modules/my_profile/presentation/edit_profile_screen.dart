@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:purchase_vendor/modules/home_page/home_screen.dart';
+import 'package:purchase_vendor/modules/home_page/presentation/home_screen.dart';
 import 'package:purchase_vendor/modules/my_profile/presentation/my_profile_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
+import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
+import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
 
@@ -17,9 +19,9 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _callController = TextEditingController();
-  TextEditingController _wAController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _callController = TextEditingController();
+  final TextEditingController _wAController = TextEditingController();
 
   @override
   void initState() {
@@ -61,7 +63,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           Navigator.pop(context);
         },
         onHomePress: () {
-          Get.to(HomePageScreen());
+          Navigation.replaceAll(Routes.dashBordScreen);
         },
       ),
     );
@@ -129,25 +131,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     txtData: 'BoutiquesAsia',
                     txtColor: AppColors.redColor1,
                     txtSize: 12.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w400,
                     txtAlign: null,
                   ),
                   4.sbh,
                   Trext(
                     txtData: 'VC313456',
-                    txtColor: AppColors.greyColor7,
+                    txtColor: AppColors.greyColor2,
                     txtSize: 12.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w400,
                     txtAlign: null,
                   ),
                   4.sbh,
                   Trext(
                     txtData: '27/01/2020',
-                    txtColor: AppColors.greyColor7,
+                    txtColor: AppColors.greyColor2,
                     txtSize: 12.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w400,
                     txtAlign: null,
                   ),
@@ -177,7 +179,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   txtData: 'Name',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w400,
                   txtAlign: TextAlign.start,
                 ),
@@ -201,7 +203,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     txtData: 'BoutiquesAsia',
                     txtColor: AppColors.blackColor,
                     txtSize: 14.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtLine: 6,
                     txtWeight: FontWeight.w400,
                     txtAlign: TextAlign.start,
@@ -241,7 +243,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 txtData: 'Mobile',
                 txtColor: AppColors.blackColor,
                 txtSize: 12.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w400,
                 txtAlign: TextAlign.start,
               ),
@@ -264,7 +266,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     txtData: '+91 3443382882',
                     txtColor: AppColors.blackColor,
                     txtSize: 14.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtLine: 6,
                     txtWeight: FontWeight.w400,
                     txtAlign: TextAlign.start,
@@ -298,7 +300,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 txtData: 'WhatsApp',
                 txtColor: AppColors.blackColor,
                 txtSize: 12.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w400,
                 txtAlign: TextAlign.start,
               ),
@@ -321,7 +323,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     txtData: '+91 848382882',
                     txtColor: AppColors.blackColor,
                     txtSize: 14.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtLine: 6,
                     txtWeight: FontWeight.w400,
                     txtAlign: TextAlign.start,
@@ -377,7 +379,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 style: TextStyle(
                   color: AppColors.whiteColor,
                   fontSize: 14.0,
-                  fontFamily: 'Lato-Regular',
+                  fontFamily: AssetsPath.lato,
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,

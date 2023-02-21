@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:purchase_vendor/modules/home_page/home_screen.dart';
+import 'package:purchase_vendor/modules/home_page/presentation/home_screen.dart';
 import 'package:purchase_vendor/modules/new_design/design_page/edit_design_details_page.dart';
 import 'package:purchase_vendor/modules/new_design/design_page/repeated_order_detail_screen.dart';
 
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/checkbox_state.dart';
+import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
+import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 
@@ -98,7 +100,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Reviewed on: 14/11/12',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -107,7 +109,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Feedback:',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -128,7 +130,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'APPROVED',
                   txtColor: AppColors.whiteColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.center,
                 ),
@@ -160,7 +162,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Reviewed on: 14/11/12',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -169,7 +171,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Comment:',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -190,7 +192,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'I have done the button changes as per your\ndesire.',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -222,7 +224,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Reviewed on: 14/11/12',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -231,7 +233,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Comment:',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -252,7 +254,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'I have done the button changes as per your\ndesire.',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -262,7 +264,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Reviewed on: 14/11/12  | Rocky',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -271,7 +273,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Feedback:',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -288,7 +290,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Reviewed on: 14/11/12  | Rocky',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -297,7 +299,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Feedback:',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -318,7 +320,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Next. put the garment on a form which\nreflects your base size',
                   txtColor: AppColors.greyColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -350,7 +352,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Reviewed on: 14/11/12',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -359,7 +361,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Feedback:',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.center,
               ),
@@ -381,7 +383,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                       'Next. put the garment on a form which\nreflects your base sizeNext. put the \ngarment on a form which reflects your \nbase sizegarment on a form which reflects \nyour base size',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtLine: 6,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
@@ -408,7 +410,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                     txtData: 'Order Detail',
                     txtColor: AppColors.whiteColor,
                     txtSize: 14.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w500,
                     txtAlign: TextAlign.center,
                   ),
@@ -494,7 +496,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
             txtData: '$itemName',
             txtColor: AppColors.blackColor,
             txtSize: 14.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.center,
           ),
@@ -513,7 +515,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
           Navigator.pop(context);
         },
         onHomePress: () {
-          Get.to(HomePageScreen());
+          Navigation.replaceAll(Routes.dashBordScreen);
         },
       ),
     );
@@ -572,7 +574,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Review History',
                   txtColor: AppColors.redColor1,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.center,
                 ),
@@ -591,7 +593,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Sample Description',
                   txtColor: AppColors.whiteColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.center,
                 ),
@@ -632,7 +634,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Review History',
                   txtColor: AppColors.whiteColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.center,
                 ),
@@ -662,7 +664,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Sample Description',
                   txtColor: AppColors.redColor1,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.center,
                 ),
@@ -687,7 +689,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Style No.: ',
                 txtColor: AppColors.blackColor,
                 txtSize: 16.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w400,
                 txtAlign: TextAlign.center,
               ),
@@ -695,7 +697,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'SW 5324 ',
                 txtColor: AppColors.blackColor,
                 txtSize: 16.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w800,
                 txtAlign: TextAlign.center,
               ),
@@ -706,7 +708,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
             txtData: 'IN REVIEW',
             txtColor: AppColors.yellowColor1,
             txtSize: 16.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w600,
             txtAlign: TextAlign.center,
           ),
@@ -738,7 +740,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Style No.',
                   txtColor: AppColors.blackColor,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -788,7 +790,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                       txtData: 'SW 5324',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w600,
                       txtAlign: TextAlign.start,
@@ -808,7 +810,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Brands',
                   txtColor: AppColors.blackColor,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -856,7 +858,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                       txtData: 'Elomelo',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w600,
                       txtAlign: TextAlign.start,
@@ -887,7 +889,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Category',
                   txtColor: AppColors.blackColor,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -936,7 +938,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                       txtData: 'Plazo',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w600,
                       txtAlign: TextAlign.start,
@@ -956,7 +958,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Lot No.',
                   txtColor: AppColors.blackColor,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -1006,7 +1008,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                       txtData: '2022/12/1/5324/SW',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w600,
                       txtAlign: TextAlign.start,
@@ -1037,7 +1039,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Seasons',
                   txtColor: AppColors.blackColor,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -1085,7 +1087,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                       txtData: 'Winter 2022',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w600,
                       txtAlign: TextAlign.start,
@@ -1105,7 +1107,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   txtData: 'Designer',
                   txtColor: AppColors.blackColor,
                   txtSize: 14.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -1155,7 +1157,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                       txtData: 'Nancy',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w600,
                       txtAlign: TextAlign.start,
@@ -1180,7 +1182,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
             txtData: 'Gender',
             txtColor: AppColors.blackColor,
             txtSize: 14.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.start,
           ),
@@ -1206,7 +1208,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: 'Female',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.start,
               ),
@@ -1227,7 +1229,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
             txtData: 'Design Description',
             txtColor: AppColors.blackColor,
             txtSize: 16.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.start,
           ),
@@ -1310,16 +1312,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: sButtonSelect == true ? 18 : 18,
                   child: sButtonSelect == true
                       ? const Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor:
-                  sButtonSelect == true ? AppColors.redColor1 : Colors.grey,
-                  color: sButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: sButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: sButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: 'S',
                   onTap: () {
                     setState(() {
@@ -1332,16 +1331,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: mButtonSelect == true ? 18 : 18,
                   child: mButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor:
-                  mButtonSelect == true ? AppColors.redColor1 : Colors.grey,
-                  color: mButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: mButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: mButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: 'M',
                   onTap: () {
                     setState(() {
@@ -1354,16 +1350,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: lButtonSelect == true ? 18 : 18,
                   child: lButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor:
-                  lButtonSelect == true ? AppColors.redColor1 : Colors.grey,
-                  color: lButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: lButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: lButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: 'L',
                   onTap: () {
                     setState(() {
@@ -1376,17 +1369,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: xLButtonSelect == true ? 18 : 18,
                   child: xLButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: xLButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: xLButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: xLButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: xLButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: 'XL',
                   onTap: () {
                     setState(() {
@@ -1399,17 +1388,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: twoXlButtonSelect == true ? 18 : 18,
                   child: twoXlButtonSelect == true
                       ? const Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: twoXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: twoXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: twoXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: twoXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '2XL',
                   onTap: () {
                     setState(() {
@@ -1437,17 +1422,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: threeXlButtonSelect == true ? 18 : 18,
                   child: threeXlButtonSelect == true
                       ? const Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: threeXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: threeXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: threeXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: threeXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '3XL',
                   onTap: () {
                     setState(() {
@@ -1461,17 +1442,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: fourXlButtonSelect == true ? 18 : 18,
                   child: fourXlButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: fourXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: fourXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: fourXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: fourXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '4XL',
                   onTap: () {
                     setState(() {
@@ -1484,17 +1461,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: fiveXlButtonSelect == true ? 18 : 18,
                   child: fiveXlButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: fiveXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: fiveXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: fiveXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: fiveXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '5XL',
                   onTap: () {
                     setState(() {
@@ -1507,17 +1480,13 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                   width: sizeXlButtonSelect == true ? 18 : 18,
                   child: sizeXlButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: sizeXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: sizeXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: sizeXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: sizeXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '6XL',
                   onTap: () {
                     setState(() {
@@ -1538,7 +1507,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
       txtData: title,
       txtColor: AppColors.blackColor,
       txtSize: 14.0,
-      txtFont: 'Lato-Regular',
+      txtFont: AssetsPath.lato,
       txtWeight: FontWeight.w500,
       txtAlign: TextAlign.start,
     );
@@ -1561,7 +1530,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
           txtData: checkBox.title,
           txtColor: AppColors.blackColor,
           txtSize: 12.0,
-          txtFont: 'Lato-Regular',
+          txtFont: AssetsPath.lato,
           txtWeight: FontWeight.w500,
           txtAlign: TextAlign.start,
         ),
@@ -1628,7 +1597,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
             txtData: color.toUpperCase(),
             txtColor: AppColors.blackColor,
             txtSize: 12.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w300,
             txtAlign: TextAlign.start,
           )
@@ -1647,7 +1616,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
             txtData: 'Prospected Price',
             txtColor: AppColors.blackColor,
             txtSize: 16.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.start,
           ),
@@ -1700,7 +1669,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 txtData: '125',
                 txtColor: AppColors.blackColor,
                 txtSize: 16.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtLine: 6,
                 txtWeight: FontWeight.w600,
                 txtAlign: TextAlign.center,
@@ -1712,7 +1681,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
             txtData: '/ Piece',
             txtColor: AppColors.blackColor,
             txtSize: 12.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.start,
           ),
@@ -1747,7 +1716,7 @@ class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
                 style: TextStyle(
                   color: AppColors.whiteColor,
                   fontSize: 12.0,
-                  fontFamily: 'Lato-Regular',
+                  fontFamily: AssetsPath.lato,
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,

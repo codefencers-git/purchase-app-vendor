@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'package:purchase_vendor/helper/shared_preferences.dart';
 import 'package:purchase_vendor/helper/toast_helper.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:purchase_vendor/modules/auth/forgot_password/model/forgot_password_model.dart';
 import 'package:purchase_vendor/modules/auth/forgot_password/service/service_screen.dart';
-import 'package:purchase_vendor/modules/auth/login/model/login_model.dart';
-import 'package:purchase_vendor/modules/auth/login/service/service_screen.dart';
-import 'package:purchase_vendor/modules/dashbord_screen.dart';
+
 import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
 import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 

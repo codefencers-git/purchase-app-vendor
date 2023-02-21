@@ -74,7 +74,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     return PreferredSize(
       preferredSize: const Size.fromHeight(65.0),
       child: AppBarOnlyTitle(
-        appbarTitle: 'My Profile'.toUpperCase(),
+        appbarTitle: 'My Profile',
       ),
     );
   }
@@ -95,11 +95,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   decoration: const BoxDecoration(
                       border: Border(
                         top: BorderSide(width: .5, color: AppColors.greyColor),
-                        bottom:
-                            BorderSide(width: .5, color: AppColors.greyColor),
+                        bottom: BorderSide(width: .5, color: AppColors.greyColor),
                         left: BorderSide(width: .5, color: AppColors.greyColor),
-                        right:
-                            BorderSide(width: .5, color: AppColors.greyColor),
+                        right: BorderSide(width: .5, color: AppColors.greyColor),
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(5.0))),
                   child: Image(
@@ -119,25 +117,25 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     txtData: 'Moksha',
                     txtColor: AppColors.redColor1,
                     txtSize: 12.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w600,
                     txtAlign: TextAlign.start,
                   ),
                   4.sbh,
                   Trext(
                     txtData: '#VC313456',
-                    txtColor: AppColors.blackColor,
+                    txtColor: AppColors.greyColor2,
                     txtSize: 12.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w400,
                     txtAlign: TextAlign.start,
                   ),
                   4.sbh,
                   Trext(
                     txtData: '27/01/2020',
-                    txtColor: AppColors.blackColor,
+                    txtColor: AppColors.greyColor2,
                     txtSize: 12.0,
-                    txtFont: 'Lato-Regular',
+                    txtFont: AssetsPath.lato,
                     txtWeight: FontWeight.w400,
                     txtAlign: TextAlign.start,
                   ),
@@ -182,7 +180,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       txtData: '+919911122299',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtWeight: FontWeight.w500,
                       txtAlign: TextAlign.start,
                     ),
@@ -220,7 +218,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       txtData: '+919911122299',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtWeight: FontWeight.w500,
                       txtAlign: TextAlign.start,
                     ),
@@ -252,7 +250,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           txtData: 'Setting',
           txtColor: AppColors.blackColor,
           txtSize: 18.0,
-          txtFont: 'Lato-Regular',
+          txtFont: AssetsPath.lato,
           txtWeight: FontWeight.w500,
           txtAlign: TextAlign.start,
         ),
@@ -276,16 +274,16 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 left: 8,
               ),
               child: Trext(
-                txtData: 'Sizes',
+                txtData: 'Size',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.start,
               ),
             ),
           ),
-          Divider(
+          const Divider(
             height: 2.0,
             color: AppColors.greyColor1,
           ),
@@ -298,7 +296,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 txtData: 'Terms & Conditions',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.start,
               ),
@@ -317,7 +315,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 txtData: 'Privacy Policy',
                 txtColor: AppColors.blackColor,
                 txtSize: 14.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w500,
                 txtAlign: TextAlign.start,
               ),
@@ -340,8 +338,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   }
 
   _addressblock() {
-    String address =
-        ' 2406, Hardhyan Singh Marg, Block 37J, Nai Walan, Karol Bagh, New Delhi, Delhi 110005';
+    String address = ' 2406, Hardhyan Singh Marg, Block 37J, Nai Walan, Karol Bagh, New Delhi, Delhi 110005';
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: RichText(
@@ -351,10 +348,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               TextSpan(
                 text: 'Address: ',
                 style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Lato-Regular',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12.0),
+                    color: Colors.black, fontFamily: AssetsPath.lato, fontWeight: FontWeight.w500, fontSize: 12.0),
               ),
               TextSpan(
                 text: address,
@@ -379,14 +373,12 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           InkWell(
             onTap: () async {
               AppSharedPreference.clear();
-              Navigation.popAndPushNamed(Routes.loginScreen);
+              Navigation.replaceAll(Routes.loginScreen);
             },
             child: Container(
-              padding: const EdgeInsets.only(
-                  top: 10.0, bottom: 10.0, left: 13.0, right: 30),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  color: AppColors.redColor1),
+              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 13.0, right: 30),
+              decoration:
+                  BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(5.0)), color: AppColors.redColor1),
               child: Row(
                 children: [
                   Icon(
@@ -400,7 +392,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     style: TextStyle(
                       color: AppColors.whiteColor,
                       fontSize: 12.0,
-                      fontFamily: 'Lato-Regular',
+                      fontFamily: AssetsPath.lato,
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,

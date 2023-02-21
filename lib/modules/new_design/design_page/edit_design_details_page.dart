@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:purchase_vendor/modules/dashbord_screen.dart';
-import 'package:purchase_vendor/modules/home_page/home_screen.dart';
+import 'package:purchase_vendor/modules/home_page/presentation/home_screen.dart';
 import 'package:purchase_vendor/modules/new_design/design_page/design_details_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
@@ -91,7 +91,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
           Navigator.pop(context);
         },
         onHomePress: () {
-          Navigation.popAndPushNamed(Routes.dashBordScreen);
+          Navigation.replaceAll(Routes.dashBordScreen);
           // Get.to(const DashBordScreen());
         },
       ),
@@ -146,7 +146,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                       txtData: 'Upload Design Image',
                       txtColor: AppColors.blackColor,
                       txtSize: 12.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtWeight: FontWeight.w500,
                       txtAlign: null,
                     ),
@@ -173,7 +173,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   txtData: 'Style No.',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -201,7 +201,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                             txtData: 'SW',
                             txtColor: AppColors.blackColor,
                             txtSize: 13.0,
-                            txtFont: 'Lato-Regular',
+                            txtFont: AssetsPath.lato,
                             txtLine: 6,
                             txtWeight: FontWeight.w600,
                             txtAlign: TextAlign.start,
@@ -230,7 +230,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                             txtData: '56/222',
                             txtColor: AppColors.blackColor,
                             txtSize: 14.0,
-                            txtFont: 'Lato-Regular',
+                            txtFont: AssetsPath.lato,
                             txtLine: 6,
                             txtWeight: FontWeight.w600,
                             txtAlign: TextAlign.start,
@@ -253,7 +253,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   txtData: 'Brands',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -292,7 +292,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   txtData: 'Category',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -317,7 +317,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   txtData: 'Lot No.',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -340,7 +340,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                       txtData: '88222',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w600,
                       txtAlign: TextAlign.start,
@@ -371,7 +371,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   txtData: 'Seasons',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -406,7 +406,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   txtData: 'Designer',
                   txtColor: AppColors.blackColor,
                   txtSize: 12.0,
-                  txtFont: 'Lato-Regular',
+                  txtFont: AssetsPath.lato,
                   txtWeight: FontWeight.w500,
                   txtAlign: TextAlign.start,
                 ),
@@ -429,7 +429,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                       txtData: 'fsd222',
                       txtColor: AppColors.blackColor,
                       txtSize: 14.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtLine: 6,
                       txtWeight: FontWeight.w600,
                       txtAlign: TextAlign.start,
@@ -480,7 +480,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
           txtData: value,
           txtColor: AppColors.blackColor,
           txtSize: 12.0,
-          txtFont: 'Lato-Regular',
+          txtFont: AssetsPath.lato,
           txtWeight: FontWeight.w500,
           txtAlign: TextAlign.center,
         ),
@@ -498,7 +498,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
             txtData: 'Gender',
             txtColor: AppColors.blackColor,
             txtSize: 14.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.start,
           ),
@@ -525,7 +525,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                       txtData: 'Female',
                       txtColor: AppColors.blackColor,
                       txtSize: 12.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtWeight: FontWeight.w500,
                       txtAlign: TextAlign.start,
                     ),
@@ -553,7 +553,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                       txtData: 'Male',
                       txtColor: AppColors.blackColor,
                       txtSize: 12.0,
-                      txtFont: 'Lato-Regular',
+                      txtFont: AssetsPath.lato,
                       txtWeight: FontWeight.w500,
                       txtAlign: TextAlign.start,
                     ),
@@ -577,7 +577,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
             txtData: 'Design Description',
             txtColor: AppColors.blackColor,
             txtSize: 16.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.start,
           ),
@@ -660,16 +660,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: sButtonSelect == true ? 18 : 18,
                   child: sButtonSelect == true
                       ? const Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor:
-                  sButtonSelect == true ? AppColors.redColor1 : Colors.grey,
-                  color: sButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: sButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: sButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: 'S',
                   onTap: () {
                     setState(() {
@@ -682,16 +679,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: mButtonSelect == true ? 18 : 18,
                   child: mButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor:
-                  mButtonSelect == true ? AppColors.redColor1 : Colors.grey,
-                  color: mButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: mButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: mButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: 'M',
                   onTap: () {
                     setState(() {
@@ -704,16 +698,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: lButtonSelect == true ? 18 : 18,
                   child: lButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor:
-                  lButtonSelect == true ? AppColors.redColor1 : Colors.grey,
-                  color: lButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: lButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: lButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: 'L',
                   onTap: () {
                     setState(() {
@@ -726,17 +717,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: xLButtonSelect == true ? 18 : 18,
                   child: xLButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: xLButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: xLButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: xLButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: xLButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: 'XL',
                   onTap: () {
                     setState(() {
@@ -749,17 +736,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: twoXlButtonSelect == true ? 18 : 18,
                   child: twoXlButtonSelect == true
                       ? const Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: twoXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: twoXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: twoXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: twoXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '2XL',
                   onTap: () {
                     setState(() {
@@ -787,17 +770,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: threeXlButtonSelect == true ? 18 : 18,
                   child: threeXlButtonSelect == true
                       ? const Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: threeXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: threeXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: threeXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: threeXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '3XL',
                   onTap: () {
                     setState(() {
@@ -811,17 +790,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: fourXlButtonSelect == true ? 18 : 18,
                   child: fourXlButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: fourXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: fourXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: fourXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: fourXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '4XL',
                   onTap: () {
                     setState(() {
@@ -834,17 +809,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: fiveXlButtonSelect == true ? 18 : 18,
                   child: fiveXlButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: fiveXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: fiveXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: fiveXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: fiveXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '5XL',
                   onTap: () {
                     setState(() {
@@ -857,17 +828,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                   width: sizeXlButtonSelect == true ? 18 : 18,
                   child: sizeXlButtonSelect == true
                       ? Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 14,
+                          color: Colors.white,
+                        )
                       : SizedBox(),
-                  borderColor: sizeXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.grey,
-                  color: sizeXlButtonSelect == true
-                      ? AppColors.redColor1
-                      : Colors.white,
+                  borderColor: sizeXlButtonSelect == true ? AppColors.redColor1 : Colors.grey,
+                  color: sizeXlButtonSelect == true ? AppColors.redColor1 : Colors.white,
                   itemName: '6XL',
                   onTap: () {
                     setState(() {
@@ -918,7 +885,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
             txtData: '$itemName',
             txtColor: AppColors.blackColor,
             txtSize: 14.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.center,
           ),
@@ -926,12 +893,13 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
       ),
     );
   }
+
   _getTitle(String? title) {
     return Trext(
       txtData: title,
       txtColor: AppColors.blackColor,
       txtSize: 14.0,
-      txtFont: 'Lato-Regular',
+      txtFont: AssetsPath.lato,
       txtWeight: FontWeight.w500,
       txtAlign: TextAlign.start,
     );
@@ -957,7 +925,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
           txtData: checkBox.title,
           txtColor: AppColors.blackColor,
           txtSize: 12.0,
-          txtFont: 'Lato-Regular',
+          txtFont: AssetsPath.lato,
           txtWeight: FontWeight.w500,
           txtAlign: TextAlign.start,
         ),
@@ -1026,7 +994,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                 txtData: color.toUpperCase(),
                 txtColor: AppColors.blackColor,
                 txtSize: 12.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtWeight: FontWeight.w400,
                 txtAlign: TextAlign.start,
               ),
@@ -1058,7 +1026,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
             txtData: 'Prospected Price',
             txtColor: AppColors.blackColor,
             txtSize: 16.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.start,
           ),
@@ -1111,7 +1079,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                 txtData: '125',
                 txtColor: AppColors.blackColor,
                 txtSize: 16.0,
-                txtFont: 'Lato-Regular',
+                txtFont: AssetsPath.lato,
                 txtLine: 6,
                 txtWeight: FontWeight.w600,
                 txtAlign: TextAlign.center,
@@ -1123,7 +1091,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
             txtData: '/ Piece',
             txtColor: AppColors.blackColor,
             txtSize: 12.0,
-            txtFont: 'Lato-Regular',
+            txtFont: AssetsPath.lato,
             txtWeight: FontWeight.w500,
             txtAlign: TextAlign.start,
           ),
@@ -1159,7 +1127,7 @@ class _EditDesignDetailsScreenState extends State<EditDesignDetailsScreen> {
                 style: TextStyle(
                   color: AppColors.whiteColor,
                   fontSize: 12.0,
-                  fontFamily: 'Lato-Regular',
+                  fontFamily: AssetsPath.lato,
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,

@@ -29,9 +29,10 @@ class LoginController extends GetxController {
       );
       if (result["success"] == "1") {
         loginDetailsModel.value = LoginModel.fromJson(result);
+        print("loginDetailsModel.value${loginDetailsModel.value?.toJson()}");
         loginDetailsModel.refresh();
-        AppSharedPreference.setJwtToken(
-            loginDetailsModel.value?.data?.token ?? "");
+        AppSharedPreference.setJwtToken(loginDetailsModel.value?.data?.token ?? "");
+        AppSharedPreference.setJwtId(loginDetailsModel.value?.data?.id ?? "");
         Navigation.popAndPushNamed(Routes.dashBordScreen);
         clearLoginController();
       } else {

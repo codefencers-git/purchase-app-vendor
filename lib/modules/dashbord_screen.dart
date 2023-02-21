@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:purchase_vendor/modules/home_page/home_screen.dart';
+import 'package:get/get.dart';
+import 'package:purchase_vendor/modules/home_page/controller/home_page_controller.dart';
+import 'package:purchase_vendor/modules/home_page/presentation/home_screen.dart';
 import 'package:purchase_vendor/modules/my_profile/presentation/my_profile_screen.dart';
+import 'package:purchase_vendor/modules/new_design/controller/new_design_controller.dart';
 import 'package:purchase_vendor/modules/order_history/presentation/order_history_screen.dart';
 import 'package:purchase_vendor/modules/upload_design/upload_design_home.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/strings_utils.dart';
-
-import 'new_design/presentation/new_design_screen.dart';
 import 'repeat_order/presentation/repeat_order_screen.dart';
 
 class DashBordScreen extends StatefulWidget {
@@ -18,21 +19,33 @@ class DashBordScreen extends StatefulWidget {
   State<DashBordScreen> createState() => _DashBordScreenState();
 }
 
-class _DashBordScreenState extends State<DashBordScreen>
-    with WidgetsBindingObserver {
+class _DashBordScreenState extends State<DashBordScreen> with WidgetsBindingObserver {
   bool rattingCount = false;
+
+  HomePageController homePageController = Get.put(HomePageController());
+  NewDesignController newDesignController = Get.put(NewDesignController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    api();
+    super.initState();
+  }
+
+  api() async {
+    await homePageController.getNewDesign();
+  }
 
   @override
   Widget build(BuildContext context) {
     SizeUtils().init(context);
     final widgetOptions = [
-      const UploadDesignHomeScreen(),
+      const HomePageScreen(),
       const OrderHistoryScreen(),
       const RepeatOrderScreen(),
       const MyProfileScreen(),
     ];
     final widgetOptionsHomePage = [
-      const HomePageScreen(),
+      const UploadDesignHomeScreen(),
       const OrderHistoryScreen(),
       const RepeatOrderScreen(),
       const MyProfileScreen(),
@@ -75,9 +88,7 @@ class _DashBordScreenState extends State<DashBordScreen>
                     top: SizeUtils.horizontalBlockSize * 1,
                   ),
                   child: Image.asset(
-                    StringsUtils.bottomIndex.value == 0
-                        ? AssetsPath.selectDesign
-                        : AssetsPath.iconDesign,
+                    StringsUtils.bottomIndex.value == 0 ? AssetsPath.selectDesign : AssetsPath.iconDesign,
                     height: StringsUtils.bottomIndex.value == 0
                         ? SizeUtils.verticalBlockSize * 3
                         : SizeUtils.verticalBlockSize * 2.7,
@@ -92,9 +103,7 @@ class _DashBordScreenState extends State<DashBordScreen>
                       top: SizeUtils.horizontalBlockSize * 1,
                     ),
                     child: Image.asset(
-                      StringsUtils.bottomIndex.value == 1
-                          ? AssetsPath.selectHistory
-                          : AssetsPath.iconHistory,
+                      StringsUtils.bottomIndex.value == 1 ? AssetsPath.selectHistory : AssetsPath.iconHistory,
                       height: StringsUtils.bottomIndex.value == 1
                           ? SizeUtils.verticalBlockSize * 3
                           : SizeUtils.verticalBlockSize * 2.7,
@@ -108,9 +117,7 @@ class _DashBordScreenState extends State<DashBordScreen>
                     top: SizeUtils.horizontalBlockSize * 1,
                   ),
                   child: Image.asset(
-                    StringsUtils.bottomIndex.value == 2
-                        ? AssetsPath.selectRecOrders
-                        : AssetsPath.iconRecOrders,
+                    StringsUtils.bottomIndex.value == 2 ? AssetsPath.selectRecOrders : AssetsPath.iconRecOrders,
                     height: StringsUtils.bottomIndex.value == 2
                         ? SizeUtils.verticalBlockSize * 3
                         : SizeUtils.verticalBlockSize * 2.7,
@@ -125,9 +132,7 @@ class _DashBordScreenState extends State<DashBordScreen>
                     top: SizeUtils.horizontalBlockSize * 1,
                   ),
                   child: Image.asset(
-                    StringsUtils.bottomIndex.value == 3
-                        ? AssetsPath.selectVendor
-                        : AssetsPath.iconVendor,
+                    StringsUtils.bottomIndex.value == 3 ? AssetsPath.selectVendor : AssetsPath.iconVendor,
                     height: StringsUtils.bottomIndex.value == 3
                         ? SizeUtils.verticalBlockSize * 3
                         : SizeUtils.verticalBlockSize * 2.7,
@@ -141,7 +146,7 @@ class _DashBordScreenState extends State<DashBordScreen>
       ),
       body: IndexedStack(
         index: StringsUtils.bottomIndex.value,
-        children: rattingCount
+        children: (homePageController.getNewDesignPostModel.value?.data?.isNotEmpty ?? false)
             ? widgetOptions.map((e) {
                 return e;
               }).toList()

@@ -11,6 +11,8 @@ class StringsUtils {
   /// app
   static const String appName = 'Purchase Vendor App';
   static const String areYouSure = 'Are you sure?';
+  static const styleNo = 'please style no.';
+
   static const String cancel = 'Cancel';
   static const String logOut = 'Log out';
   static const String internetCheckError = 'Please check internet connection!!';

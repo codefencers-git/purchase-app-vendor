@@ -7,4 +7,6 @@ class AppConfig {
   static const String login = '/api/auth/login';
   static const String sendOTP = '/api/auth/sendOTP';
   static const String newPassword = '/api/auth/change-password';
+  static const String addDesign = '/api/vendor/save-design';
+  static const String getDesigns = '/api/vendor/designs';
 }
