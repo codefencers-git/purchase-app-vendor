@@ -16,7 +16,7 @@ class HomePageService {
         'Request-From': 'Postman',
         'Content-Type': 'application/json',
         'Accept-Language': 'en',
-        'CF-Token': '',
+        'CF-Token': '{{CF-Token}}',
         'Authorization': 'Bearer ${AppSharedPreference.jwtToken}'
       };
       final result = await _networkAPICall.post(

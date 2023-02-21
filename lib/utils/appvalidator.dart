@@ -96,6 +96,7 @@ class Validation {
     }
     return null;
   }
+
   String? currentPasswordValidation(String? value) {
     if (value!.isEmpty) {
       return "${StringsUtils.emptyMessage} current password field";
@@ -110,6 +111,13 @@ class Validation {
       return '${StringsUtils.emptyMessage}phone number';
     } else if (!regex.hasMatch(value)) {
       return StringsUtils.emptyMessage + 'valid phone number';
+    }
+    return null;
+  }
+
+  String? styleValidator(String? value) {
+    if (value!.isEmpty) {
+      return "";
     }
     return null;
   }

@@ -22,8 +22,8 @@ class DashBordScreen extends StatefulWidget {
 class _DashBordScreenState extends State<DashBordScreen> with WidgetsBindingObserver {
   bool rattingCount = false;
 
-  NewDesignController newDesignController = Get.put(NewDesignController());
   HomePageController homePageController = Get.put(HomePageController());
+  NewDesignController newDesignController = Get.put(NewDesignController());
   @override
   void initState() {
     // TODO: implement initState

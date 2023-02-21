@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:purchase_vendor/helper/shared_preferences.dart';
 import 'package:purchase_vendor/helper/toast_helper.dart';
+import 'package:purchase_vendor/modules/home_page/controller/home_page_controller.dart';
 import 'package:purchase_vendor/modules/new_design/model/new_design_model.dart';
-import 'package:purchase_vendor/modules/new_design/service/new_design_service_screen.dart';
 import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
 import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 
@@ -17,10 +19,10 @@ class NewDesignController extends GetxController {
   final TextEditingController lotNoController = TextEditingController();
   final TextEditingController styleNoController = TextEditingController();
   Rx<NewDesignPostModel?> newDesignPostModel = NewDesignPostModel().obs;
-
+  HomePageController homePageController = Get.find();
   RxString firstImage = ''.obs;
   RxString secondImage = ''.obs;
-
+  RxBool errorTrue = false.obs;
   String gender = '';
   RxString sTextButtonSelect = ''.obs;
   RxString mTextButtonSelect = ''.obs;
@@ -41,13 +43,26 @@ class NewDesignController extends GetxController {
   bool fourXlButtonSelect = false;
   bool fiveXlButtonSelect = false;
   bool sizeXlButtonSelect = false;
-  RxList seasonsDropDownList = ['D&G', 'Gucci', 'Armani', 'Prada'].obs;
+  RxList seasonsDropDownList = [
+    'D&G',
+    'Gucci',
+    'Armani',
+    'Prada',
+  ].obs;
   RxList categoryDropDownList = ['D&G', 'Gucci', 'Armani', 'Prada'].obs;
-  RxList brandsDropDownList = ['D&G', 'Gucci', 'Armani', 'Prada'].obs;
+  RxList brandsDropDownList = [
+    'D&G',
+    'Gucci',
+    'Armani',
+    'Prada',
+  ].obs;
   RxString seasonsDropDownValue = ''.obs;
   RxString categoryDropDownValue = ''.obs;
   RxString brandsDropDownValue = ''.obs;
   RxBool isNewDesignLoading = false.obs;
+  RxInt brandIndex = 0.obs;
+  RxInt seasonsIndex = 0.obs;
+  RxInt categoryIndex = 0.obs;
 
   @override
   void onInit() async {
@@ -80,49 +95,74 @@ class NewDesignController extends GetxController {
   Future<NewDesignPostModel?> sendNewDesign({
     String? vendorId,
     String? styleNo,
-    String? brandId,
-    String? categoryId,
+    int? brandId,
+    int? categoryId,
     String? lotNumber,
-    String? seasonId,
+    int? seasonId,
     String? designers,
     String? gender,
     String? fabric,
     String? size,
-    String? price,
+    double? price,
     String? status,
     String? imageVariationListTitles2,
     String? image1,
   }) async {
     try {
       isNewDesignLoading.value = true;
+      // print("vendorId  :- ${vendorId}");
+      // print("styleNo   :- ${styleNo}");
+      // print("brandId   :- ${brandId}");
+      // print("categoryId:- ${categoryId}");
+      // print("lotNumber :- ${lotNumber}");
+      // print("seasonId  :- ${seasonId}");
+      // print("designers :- ${designers}");
+      // print("gender    :- ${gender}");
+      // print("fabric    :- ${fabric}");
+      // print("size      :- ${size}");
+      // print("price      :- ${price}");
+      // print("status     :- ${status}");
+      // print("imageVariationListTitles2     :- ${imageVariationListTitles2}");
+      // print("image1     :- ${image1}");
 
-      final result = await NewDesignScreenService.sendNewDesign(
-        brandId: brandId,
-        categoryId: categoryId,
-        designers: designers,
-        fabric: fabric,
-        gender: gender,
-        image1: image1,
-        imageVariationListTitles2: imageVariationListTitles2,
-        lotNumber: lotNumber,
-        price: price,
-        seasonId: seasonId,
-        size: size,
-        status: status,
-        styleNo: styleNo,
-        vendorId: vendorId,
-      );
-      if (result["success"] == "1") {
-        showToast.toastMessage("${result["message"]}");
+      var headers = {
+        'Request-From': 'Postman',
+        'Accept-Language': 'en',
+        'CF-Token': '{{CF-Token}}',
+        'Authorization': 'Bearer ${AppSharedPreference.jwtToken}'
+      };
+      var request = http.MultipartRequest('POST', Uri.parse('https://api.gartext.com/api/vendor/save-design'));
+      request.fields.addAll({
+        'vendor_id': "$vendorId",
+        'style_no': '$styleNo',
+        'brand_id': '1',
+        'category_id': '1',
+        'lot_number': '$lotNumber',
+        'season_id': '1',
+        'designers': '$designers',
+        'gender': '$gender',
+        'fabric': '$fabric',
+        'size': '$size',
+        'price': '$price',
+        'status': '$status',
+        'image_variation_list_titles': 'title1'
+      });
+      request.files.add(await http.MultipartFile.fromPath('image', '$image1'));
+      request.files.add(await http.MultipartFile.fromPath('image_variation_list', '$imageVariationListTitles2'));
+      request.headers.addAll(headers);
 
-        newDesignPostModel.value = NewDesignPostModel.fromJson(result);
-        showToast.toastMessage("${result["success"]}");
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        // print("stream: - ${await response.stream.bytesToString()}");
+        await homePageController.getNewDesign();
         Navigation.popAndPushNamed(Routes.dashBordScreen);
-
-        clearController();
       } else {
-        showToast.toastMessage("${result["message"]}");
+        print(response.reasonPhrase);
+        showToast.toastMessage("${response.reasonPhrase}");
       }
+
+      ///
     } catch (e, st) {
       isNewDesignLoading.value = false;
 

@@ -1,15 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:purchase_vendor/helper/shared_preferences.dart';
 import 'package:purchase_vendor/helper/toast_helper.dart';
 import 'package:purchase_vendor/modules/new_design/controller/new_design_controller.dart';
-import 'package:purchase_vendor/modules/new_design/design_page/design_details_screen.dart';
 import 'package:purchase_vendor/utils/app_colors.dart';
+import 'package:purchase_vendor/utils/appvalidator.dart';
 import 'package:purchase_vendor/utils/assets_path.dart';
-import 'package:purchase_vendor/utils/navigation_utils/navigation.dart';
-import 'package:purchase_vendor/utils/navigation_utils/routes.dart';
 import 'package:purchase_vendor/utils/size_utils.dart';
 import 'package:purchase_vendor/utils/sized_box_utils.dart';
 import 'package:purchase_vendor/widgets/app_text.dart';
@@ -25,6 +24,25 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
   NewDesignController newDesignController = Get.find();
 
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    newDesignController.styleNoController.dispose();
+    super.dispose();
+  }
+
+  String? get _errorText {
+    // at any time, we can get the text from _controller.value.text
+    final text = newDesignController.styleNoController.value.text;
+    // Note: you can do your own custom validation here
+    // Move this logic this outside the widget for more testable code
+    if (text.isEmpty) {
+      return 'Can\'t be empty';
+    }
+
+    // return null if the text is valid
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -192,6 +210,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                 8.sbh,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       flex: 1,
@@ -224,36 +243,64 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                     3.sbw,
                     Expanded(
                       flex: 3,
-                      child: Container(
-                        width: 200,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          border: Border(
-                            top: BorderSide(width: .5, color: AppColors.blackColor),
-                            bottom: BorderSide(width: .5, color: AppColors.blackColor),
-                            left: BorderSide(width: .5, color: AppColors.blackColor),
-                            right: BorderSide(width: .5, color: AppColors.blackColor),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 200,
+                            height: 40,
+                            // decoration: const BoxDecoration(
+                            //   borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                            //   border: Border(
+                            //     top: BorderSide(width: .5, color: AppColors.blackColor),
+                            //     bottom: BorderSide(width: .5, color: AppColors.blackColor),
+                            //     left: BorderSide(width: .5, color: AppColors.blackColor),
+                            //     right: BorderSide(width: .5, color: AppColors.blackColor),
+                            //   ),
+                            // ),
+                            child: TextFormField(
+                              controller: newDesignController.styleNoController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: Colors.transparent,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              validator: Validation().styleValidator,
+                              decoration: InputDecoration(
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                                focusColor: Colors.white,
+                                errorStyle: TextStyle(height: 0), // this is new
+                                isDense: true,
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        child: TextFormField(
-                          controller: newDesignController.styleNoController,
-                          keyboardType: TextInputType.text,
-                          cursorColor: Colors.transparent,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-                            focusColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
-                            focusedBorder:
-                                OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
-                          ),
-                        ),
+                        ],
                       ),
                     ),
                   ],
@@ -267,22 +314,30 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Trext(
-                  txtData: 'Brand',
-                  txtColor: AppColors.blackColor,
-                  txtSize: 12.0,
-                  txtFont: AssetsPath.lato,
-                  txtWeight: FontWeight.w500,
-                  txtAlign: TextAlign.start,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 4,
+                  ),
+                  child: Trext(
+                    txtData: 'Brand',
+                    txtColor: AppColors.blackColor,
+                    txtSize: 12.0,
+                    txtFont: AssetsPath.lato,
+                    txtWeight: FontWeight.w500,
+                    txtAlign: TextAlign.start,
+                  ),
                 ),
                 8.sbh,
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
-                  child: dropDown(
+                  child: newDrop(
+                    context: context,
                     dropDownList: newDesignController.brandsDropDownList,
                     dropDownValue: newDesignController.brandsDropDownValue,
-                    onChanged: (value) {
+                    onChanged: (String? value) {
                       newDesignController.brandsDropDownValue.value = value.toString();
+
+                      newDesignController.brandIndex.value = newDesignController.brandsDropDownList.indexOf(value);
                     },
                   ),
                 ),
@@ -315,11 +370,14 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                   txtAlign: TextAlign.start,
                 ),
                 8.sbh,
-                dropDown(
+                newDrop(
+                  context: context,
                   dropDownList: newDesignController.categoryDropDownList,
                   dropDownValue: newDesignController.categoryDropDownValue,
                   onChanged: (value) {
                     newDesignController.categoryDropDownValue.value = value.toString();
+
+                    newDesignController.categoryIndex.value = newDesignController.categoryDropDownList.indexOf(value);
                   },
                 ),
               ],
@@ -343,30 +401,55 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                 Container(
                   width: 200,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    border: Border(
-                      top: BorderSide(width: .5, color: AppColors.blackColor),
-                      bottom: BorderSide(width: .5, color: AppColors.blackColor),
-                      left: BorderSide(width: .5, color: AppColors.blackColor),
-                      right: BorderSide(width: .5, color: AppColors.blackColor),
-                    ),
-                  ),
+                  // decoration: const BoxDecoration(
+                  //   borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  //   border: Border(
+                  //     top: BorderSide(width: .5, color: AppColors.blackColor),
+                  //     bottom: BorderSide(width: .5, color: AppColors.blackColor),
+                  //     left: BorderSide(width: .5, color: AppColors.blackColor),
+                  //     right: BorderSide(width: .5, color: AppColors.blackColor),
+                  //   ),
+                  // ),
                   child: TextFormField(
                     controller: newDesignController.lotNoController,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     cursorColor: Colors.transparent,
+                    inputFormatters: [FilteringTextInputFormatter(RegExp(r'[0-9]'), allow: true)],
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
                     ),
+                    validator: Validation().styleValidator,
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                       focusColor: Colors.white,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
-                      focusedBorder:
-                          OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                      ),
+                      errorStyle: TextStyle(height: 0), // this is new
+                      isDense: true,
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                      ),
                     ),
                   ),
                 )
@@ -399,11 +482,13 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                   txtAlign: TextAlign.start,
                 ),
                 8.sbh,
-                dropDown(
+                newDrop(
+                  context: context,
                   dropDownList: newDesignController.seasonsDropDownList,
                   dropDownValue: newDesignController.seasonsDropDownValue,
                   onChanged: (value) {
                     newDesignController.seasonsDropDownValue.value = value.toString();
+                    newDesignController.seasonsIndex.value = newDesignController.seasonsDropDownList.indexOf(value);
                   },
                 ),
               ],
@@ -427,15 +512,15 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                 Container(
                   width: 200,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    border: Border(
-                      top: BorderSide(width: .5, color: AppColors.blackColor),
-                      bottom: BorderSide(width: .5, color: AppColors.blackColor),
-                      left: BorderSide(width: .5, color: AppColors.blackColor),
-                      right: BorderSide(width: .5, color: AppColors.blackColor),
-                    ),
-                  ),
+                  // decoration: const BoxDecoration(
+                  //   borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  //   border: Border(
+                  //     top: BorderSide(width: .5, color: AppColors.blackColor),
+                  //     bottom: BorderSide(width: .5, color: AppColors.blackColor),
+                  //     left: BorderSide(width: .5, color: AppColors.blackColor),
+                  //     right: BorderSide(width: .5, color: AppColors.blackColor),
+                  //   ),
+                  // ),
                   child: TextFormField(
                     controller: newDesignController.designerController,
                     keyboardType: TextInputType.text,
@@ -445,12 +530,36 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
                     ),
+                    validator: Validation().styleValidator,
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                       focusColor: Colors.white,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
-                      focusedBorder:
-                          OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
+                      errorStyle: TextStyle(height: 0), // this is new
+                      isDense: true,
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                      ),
                     ),
                   ),
                 )
@@ -600,31 +709,38 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
                 //   newDesignController.fabricController.text = value;
                 // });
               },
+              validator: Validation().styleValidator,
+
               decoration: InputDecoration(
                 hintText: "Fabric",
                 contentPadding: const EdgeInsets.symmetric(vertical: 22, horizontal: 10),
+                errorStyle: TextStyle(height: 0), // this is new
+                isDense: true,
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(
-                    color: AppColors.blackColor,
-                  ),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(
-                    color: AppColors.blackColor,
-                  ),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(
-                    color: AppColors.blackColor,
-                  ),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.redColor1, width: .5),
                 ),
                 focusColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
               ),
             ),
           ),
@@ -905,60 +1021,57 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Obx(
-                () => InkWell(
-                  onTap: () {
-                    newDesignController.fileTeamLogo(name: "SecondImage");
-                  },
-                  child: newDesignController.secondImage.isNotEmpty
-                      ? Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: AppColors.greyColor5,
-                            border: const Border(
-                              top: BorderSide(width: .5, color: AppColors.greyColor),
-                              bottom: BorderSide(width: .5, color: AppColors.greyColor),
-                              left: BorderSide(width: .5, color: AppColors.greyColor),
-                              right: BorderSide(width: .5, color: AppColors.greyColor),
-                            ),
-                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                () => newDesignController.secondImage.isNotEmpty
+                    ? Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: AppColors.greyColor5,
+                          border: const Border(
+                            top: BorderSide(width: .5, color: AppColors.greyColor),
+                            bottom: BorderSide(width: .5, color: AppColors.greyColor),
+                            left: BorderSide(width: .5, color: AppColors.greyColor),
+                            right: BorderSide(width: .5, color: AppColors.greyColor),
                           ),
-                          child: Image.file(
-                            File(
-                              newDesignController.secondImage.value,
-                            ),
-                            fit: BoxFit.cover,
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                        child: Image.file(
+                          File(
+                            newDesignController.secondImage.value,
                           ),
-                        )
-                      : Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: AppColors.greyColor5,
-                            border: const Border(
-                              top: BorderSide(width: .5, color: AppColors.greyColor),
-                              bottom: BorderSide(width: .5, color: AppColors.greyColor),
-                              left: BorderSide(width: .5, color: AppColors.greyColor),
-                              right: BorderSide(width: .5, color: AppColors.greyColor),
-                            ),
-                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: AppColors.greyColor5,
+                          border: const Border(
+                            top: BorderSide(width: .5, color: AppColors.greyColor),
+                            bottom: BorderSide(width: .5, color: AppColors.greyColor),
+                            left: BorderSide(width: .5, color: AppColors.greyColor),
+                            right: BorderSide(width: .5, color: AppColors.greyColor),
                           ),
-                          child: Center(
-                            child: Trext(
-                              txtData: 'Upload \n Image',
-                              txtColor: AppColors.greyColor,
-                              txtSize: 12.0,
-                              txtFont: AssetsPath.lato,
-                              txtWeight: FontWeight.w500,
-                              txtAlign: TextAlign.start,
-                            ),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                        child: Center(
+                          child: Trext(
+                            txtData: 'Upload \n Image',
+                            txtColor: AppColors.greyColor,
+                            txtSize: 12.0,
+                            txtFont: AssetsPath.lato,
+                            txtWeight: FontWeight.w500,
+                            txtAlign: TextAlign.start,
                           ),
                         ),
-                ),
+                      ),
               ),
               16.sbw,
               InkWell(
-                onTap: (() {}),
+                onTap: () {
+                  newDesignController.fileTeamLogo(name: "SecondImage");
+                },
                 child: Image(
                   image: AssetImage(GlobalImages.addIcon),
                   height: 24.0,
@@ -970,32 +1083,55 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
           8.sbh,
           Container(
             width: 80.0,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              border: Border(
-                top: BorderSide(width: .5, color: AppColors.blackColor),
-                bottom: BorderSide(width: .5, color: AppColors.blackColor),
-                left: BorderSide(width: .5, color: AppColors.blackColor),
-                right: BorderSide(width: .5, color: AppColors.blackColor),
+            height: 30,
+
+            // decoration: const BoxDecoration(
+            //   borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            //   border: Border(
+            //     top: BorderSide(width: .5, color: AppColors.blackColor),
+            //     bottom: BorderSide(width: .5, color: AppColors.blackColor),
+            //     left: BorderSide(width: .5, color: AppColors.blackColor),
+            //     right: BorderSide(width: .5, color: AppColors.blackColor),
+            //   ),
+            // ),
+            child: TextFormField(
+              controller: newDesignController.colorController,
+              keyboardType: TextInputType.text,
+              cursorColor: Colors.transparent,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.w400,
               ),
-            ),
-            child: SizedBox(
-              height: 30,
-              child: TextFormField(
-                controller: newDesignController.colorController,
-                keyboardType: TextInputType.text,
-                cursorColor: Colors.transparent,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
+              validator: Validation().styleValidator,
+              decoration: InputDecoration(
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.redColor1, width: .5),
                 ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                  focusColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
-                  focusedBorder:
-                      OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
+                contentPadding: EdgeInsets.only(top: 15.0, right: 10, left: 10),
+                focusColor: Colors.white,
+                errorStyle: TextStyle(height: 0), // this is new
+                isDense: true,
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
                 ),
               ),
             ),
@@ -1040,7 +1176,7 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
 
   _getPriceBox() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -1054,30 +1190,61 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
           Container(
             height: 30,
             width: 80.0,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              border: Border(
-                top: BorderSide(width: .5, color: AppColors.blackColor),
-                bottom: BorderSide(width: .5, color: AppColors.blackColor),
-                left: BorderSide(width: .5, color: AppColors.blackColor),
-                right: BorderSide(width: .5, color: AppColors.blackColor),
-              ),
-            ),
+            // decoration: const BoxDecoration(
+            //   borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            //   border: Border(
+            //     top: BorderSide(width: .5, color: AppColors.blackColor),
+            //     bottom: BorderSide(width: .5, color: AppColors.blackColor),
+            //     left: BorderSide(width: .5, color: AppColors.blackColor),
+            //     right: BorderSide(width: .5, color: AppColors.blackColor),
+            //   ),
+            // ),
             child: TextFormField(
               controller: newDesignController.priceController,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               cursorColor: Colors.transparent,
               style: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.w400,
               ),
+              validator: Validation().styleValidator,
               decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                ),
+                contentPadding: EdgeInsets.only(top: 15.0, right: 10, left: 10),
                 focusColor: Colors.white,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
+                errorStyle: TextStyle(height: 0), // this is new
+                isDense: true,
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.redColor1, width: .5),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(color: AppColors.blackColor, width: .5),
+                ),
               ),
+              // decoration: InputDecoration(
+              //   contentPadding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              //   focusColor: Colors.white,
+              //   border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: BorderSide.none),
+              //   focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(7), borderSide: BorderSide.none),
+              // ),
             ),
           ),
           8.sbw,
@@ -1103,47 +1270,51 @@ class _NewDesignScreenState extends State<NewDesignScreen> {
           InkWell(
             onTap: () async {
               setState(() {});
-              if ((newDesignController.firstImage.isNotEmpty &&
-                      newDesignController.secondImage.isNotEmpty &&
-                      newDesignController.styleNoController.text.isNotEmpty &&
-                      newDesignController.lotNoController.text.isNotEmpty &&
-                      newDesignController.designerController.text.isNotEmpty &&
-                      newDesignController.brandsDropDownValue.value.isNotEmpty &&
-                      newDesignController.categoryDropDownValue.value.isNotEmpty &&
-                      newDesignController.seasonsDropDownValue.value.isNotEmpty &&
-                      newDesignController.gender.isNotEmpty &&
-                      newDesignController.fabricController.text.isNotEmpty &&
-                      newDesignController.colorController.text.isNotEmpty &&
-                      newDesignController.priceController.text.isNotEmpty) &&
-                  (newDesignController.sTextButtonSelect.isNotEmpty ||
-                      newDesignController.mTextButtonSelect.isNotEmpty ||
-                      newDesignController.lTextButtonSelect.isNotEmpty ||
-                      newDesignController.xLTextButtonSelect.isNotEmpty ||
-                      newDesignController.twoXlTextButtonSelect.isNotEmpty ||
-                      newDesignController.threeXlTextButtonSelect.isNotEmpty ||
-                      newDesignController.fourXlTextButtonSelect.isNotEmpty ||
-                      newDesignController.fiveXlTextButtonSelect.isNotEmpty ||
-                      newDesignController.sizeXlTextButtonSelect.isNotEmpty)) {
-                newDesignController.sendNewDesign(
-                  styleNo: newDesignController.styleNoController.text,
-                  gender: newDesignController.gender,
-                  seasonId: newDesignController.seasonsDropDownValue.value,
-                  price: newDesignController.priceController.text,
-                  lotNumber: newDesignController.lotNoController.text,
-                  fabric: newDesignController.fabricController.text,
-                  brandId: newDesignController.brandsDropDownValue.value,
-                  categoryId: newDesignController.categoryDropDownValue.value,
-                  designers: newDesignController.designerController.text,
-                  status: newDesignController.colorController.text,
-                  imageVariationListTitles2: newDesignController.firstImage.value,
-                  image1: newDesignController.secondImage.value,
-                  vendorId: AppSharedPreference.jwtId,
-                  size:
-                      "${newDesignController.sTextButtonSelect.value},${newDesignController.mTextButtonSelect.value},${newDesignController.lTextButtonSelect.value},${newDesignController.twoXlTextButtonSelect.value},${newDesignController.xLTextButtonSelect.value},${newDesignController.threeXlTextButtonSelect.value},${newDesignController.fourXlTextButtonSelect.value},${newDesignController.fiveXlTextButtonSelect.value},${newDesignController.sizeXlTextButtonSelect.value}",
-                );
-                Navigation.popAndPushNamed(Routes.dashBordScreen);
+              newDesignController.errorTrue.value = true;
+              if (_formKey.currentState!.validate()) {
+                if ((newDesignController.firstImage.isNotEmpty &&
+                        newDesignController.secondImage.isNotEmpty &&
+                        newDesignController.styleNoController.text.isNotEmpty &&
+                        newDesignController.lotNoController.text.isNotEmpty &&
+                        newDesignController.designerController.text.isNotEmpty &&
+                        newDesignController.brandsDropDownValue.value.isNotEmpty &&
+                        newDesignController.categoryDropDownValue.value.isNotEmpty &&
+                        newDesignController.seasonsDropDownValue.value.isNotEmpty &&
+                        newDesignController.gender.isNotEmpty &&
+                        newDesignController.fabricController.text.isNotEmpty &&
+                        newDesignController.colorController.text.isNotEmpty &&
+                        newDesignController.priceController.text.isNotEmpty) &&
+                    (newDesignController.sTextButtonSelect.isNotEmpty ||
+                        newDesignController.mTextButtonSelect.isNotEmpty ||
+                        newDesignController.lTextButtonSelect.isNotEmpty ||
+                        newDesignController.xLTextButtonSelect.isNotEmpty ||
+                        newDesignController.twoXlTextButtonSelect.isNotEmpty ||
+                        newDesignController.threeXlTextButtonSelect.isNotEmpty ||
+                        newDesignController.fourXlTextButtonSelect.isNotEmpty ||
+                        newDesignController.fiveXlTextButtonSelect.isNotEmpty ||
+                        newDesignController.sizeXlTextButtonSelect.isNotEmpty)) {
+                  newDesignController.sendNewDesign(
+                    styleNo: newDesignController.styleNoController.text,
+                    gender: newDesignController.gender,
+                    seasonId: newDesignController.seasonsIndex.value,
+                    price: double.tryParse(newDesignController.priceController.text),
+                    lotNumber: newDesignController.lotNoController.text,
+                    fabric: newDesignController.fabricController.text,
+                    brandId: newDesignController.brandIndex.value,
+                    categoryId: newDesignController.categoryIndex.value,
+                    designers: newDesignController.designerController.text,
+                    status: newDesignController.colorController.text,
+                    imageVariationListTitles2: newDesignController.firstImage.value,
+                    image1: newDesignController.secondImage.value,
+                    vendorId: AppSharedPreference.jwtId,
+                    size:
+                        "${newDesignController.sTextButtonSelect.value},${newDesignController.mTextButtonSelect.value},${newDesignController.lTextButtonSelect.value},${newDesignController.twoXlTextButtonSelect.value},${newDesignController.xLTextButtonSelect.value},${newDesignController.threeXlTextButtonSelect.value},${newDesignController.fourXlTextButtonSelect.value},${newDesignController.fiveXlTextButtonSelect.value},${newDesignController.sizeXlTextButtonSelect.value}",
+                  );
+                } else {
+                  showToast.toastMessage("Please All Details Select");
+                }
               } else {
-                showToast.toastMessage("error");
+                showToast.toastMessage("Please All Details Select");
               }
             },
             child: Container(
